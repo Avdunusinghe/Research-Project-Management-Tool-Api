@@ -1,6 +1,6 @@
-//Main Modules
+//load modules
 const express = require("express");
-//const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
@@ -8,12 +8,17 @@ const startupDebugger = require("debug")("app:startup");
 const dbDebugger = require("debug")("app:db");
 const logger = require("./logger");
 
-//Enviroment Management
 require("dotenv").config();
 
+//Create the Express App
 const app = express();
+
+//Setup Request body JSON Parsing
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
+
+//Enable All CORS Requests
 app.use(cors());
 app.use(helmet());
 
@@ -29,8 +34,9 @@ app.use((request, response, next) => {
   console.log("Authenticating...");
   next();
 });
+
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
-  console.log("Research Management Project Tool Web Api");
+  console.log(`Research Management Project Tool Web API: ${port}`);
 });
