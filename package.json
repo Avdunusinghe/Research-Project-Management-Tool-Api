@@ -1,0 +1,27 @@
+{
+  "name": "research-project-management-tool-api",
+  "version": "1.0.0",
+  "description": "Application Frameworks Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avdunusinghe/Research-Project-Management-Tool-Api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Avdunusinghe/Research-Project-Management-Tool-Api/issues"
+  },
+  "homepage": "https://github.com/Avdunusinghe/Research-Project-Management-Tool-Api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "debug": "^4.3.3",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "morgan": "^1.10.0"
+  }
+}
