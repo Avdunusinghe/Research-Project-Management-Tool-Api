@@ -36,6 +36,9 @@ app.use((request, response, next) => {
   next();
 });
 
+//routes
+app.use("/api/user", require("./routes/user.route"));
+
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
