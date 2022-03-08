@@ -1,19 +1,22 @@
 const User = require("../models/user.model");
+const bcrypt = require("bcrypt");
 
 const saveUser = async (request, response) => {
   try {
-    const { firstName, lastName, email, password } = request.body;
+    let { firstName, lastName, email, password } = request.body;
 
-    const user = new User({
+    let user = new User({
       firstName,
       lastName,
       email,
       password,
     });
 
-    user = await User.save();
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+    await user.save();
 
-    response.status(200).json("User has been Saved Successfully");
+    response.status(200).send("User has been save Successfully");
   } catch (error) {
     response.status(400).json(error.message);
   }
