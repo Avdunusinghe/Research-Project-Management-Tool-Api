@@ -1,11 +1,10 @@
 //load modules
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const startupDebugger = require("debug")("app:startup");
-const dbDebugger = require("debug")("app:db");
+const dataAccess = require("./config/dataAccess");
 const logger = require("./logger");
 
 require("dotenv").config();
@@ -25,15 +24,20 @@ app.use(helmet());
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
   startupDebugger("Enabled Morgon......");
-  dbDebugger("Connected to the database");
 }
 
+//Connect Database
+const connectionString = process.env.connectionString;
+dataAccess(connectionString);
 app.use(logger);
 
 app.use((request, response, next) => {
   console.log("Authenticating...");
   next();
 });
+
+//routes
+app.use("/api/user", require("./routes/user.route"));
 
 const port = process.env.PORT || 4000;
 
