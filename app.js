@@ -4,7 +4,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const startupDebugger = require("debug")("app:startup");
-const dataAccess = require("./config/dataAccess");
+const dataAccess = require("./config/DataAccess");
 const logger = require("./logger");
 
 require("dotenv").config();
@@ -37,6 +37,7 @@ app.use((request, response, next) => {
 });
 
 //routes
+app.use("/api/auth", require("./routes/auth.route"));
 app.use("/api/user", require("./routes/user.route"));
 
 const port = process.env.PORT || 4000;
