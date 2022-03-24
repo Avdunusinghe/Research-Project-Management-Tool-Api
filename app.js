@@ -35,6 +35,9 @@ app.use((request, response, next) => {
 });
 
 //routes
+app.get("/", (request, response) => {
+  response.send("<h3>Welcome Research Project Management Tool API</h3>");
+});
 app.use("/api/auth", require("./src/routes/auth.route"));
 app.use("/api/user", require("./src/routes/user.route"));
 
