@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
 const dbDebugger = require("debug")("app:db");
 
-const conectDatabase = async (connectionString) => {
+let mongoDb;
+
+const databaseConnection = async () => {
   try {
-    await mongoose.connect(connectionString, {
+    const connectionString = process.env.connectionString;
+    mongoDb = await mongoose.connect(connectionString, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -13,6 +16,7 @@ const conectDatabase = async (connectionString) => {
     console.log(error);
     process.exit(1);
   }
+  return mongoDb;
 };
 
-module.exports = conectDatabase;
+module.exports = databaseConnection;

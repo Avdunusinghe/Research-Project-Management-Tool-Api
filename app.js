@@ -1,13 +1,13 @@
 //load modules
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const startupDebugger = require("debug")("app:startup");
-const dataAccess = require("./src/config/dataAccess");
+const databaseConnection = require("./src/utils/database.connection");
 const logger = require("./logger");
-
-require("dotenv").config();
 
 //Create the Express App
 const app = express();
@@ -27,8 +27,6 @@ if (app.get("env") === "development") {
 }
 
 //Connect Database
-const connectionString = process.env.connectionString;
-dataAccess(connectionString);
 app.use(logger);
 
 app.use((request, response, next) => {
@@ -43,5 +41,6 @@ app.use("/api/user", require("./src/routes/user.route"));
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
+  databaseConnection();
   console.log(`Research Management Project Tool Web API: ${port}`);
 });
