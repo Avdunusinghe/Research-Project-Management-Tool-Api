@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
-require("dotenv").config();
+
 const login = async (request, response) => {
   try {
     let user = await User.findOne({ email: request.body.email });
