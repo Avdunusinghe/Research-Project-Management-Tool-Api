@@ -12,6 +12,8 @@ const saveUser = async (request, response) => {
       mobileNumber,
       password,
       mobileNumber,
+      createOn: new Date().toUTCString(),
+      updatedOn: new Date().toUTCString(),
     });
 
     const salt = await bcrypt.genSalt(10);
@@ -24,8 +26,15 @@ const saveUser = async (request, response) => {
   }
 };
 
-const getAllUsersDetails = (request, response) => {
+const getAllUsersDetails = async (request, response) => {
   try {
+    const { userRole, searchText } = request.query;
+
+    const userDetails = await User.find();
+
+    if (userRole !== "all") {
+      const userDetails = await User.find(userRole);
+    }
   } catch (error) {
     response.status(400).json(error.message);
   }

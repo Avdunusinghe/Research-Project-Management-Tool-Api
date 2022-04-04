@@ -16,7 +16,8 @@ const login = async (request, response) => {
       if (!isValidPassword) {
         return response.status(400).send("Invalid email or password");
       }
-      const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
+
+      const token = user.genarateJwtToken();
       response.send(token);
     }
   } catch (err) {}
