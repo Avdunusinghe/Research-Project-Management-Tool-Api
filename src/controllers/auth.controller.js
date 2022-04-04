@@ -17,10 +17,12 @@ const login = async (request, response) => {
         return response.status(400).send("Invalid email or password");
       }
 
-      const token = user.genarateJwtToken();
-      response.send(token);
+      const token = await user.genarateJwtToken();
+      response.header("RPMT-auth-token", token).send();
     }
-  } catch (err) {}
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 module.exports = {

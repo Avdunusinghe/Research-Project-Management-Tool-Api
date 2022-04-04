@@ -11,7 +11,6 @@ const saveUser = async (request, response) => {
       email,
       mobileNumber,
       password,
-      mobileNumber,
       createOn: new Date().toUTCString(),
       updatedOn: new Date().toUTCString(),
     });
