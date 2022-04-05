@@ -16,10 +16,13 @@ const login = async (request, response) => {
       if (!isValidPassword) {
         return response.status(400).send("Invalid email or password");
       }
-      const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
-      response.send(token);
+
+      const token = await user.genarateJwtToken();
+      response.header("RPMT-auth-token", token).send();
     }
-  } catch (err) {}
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 module.exports = {

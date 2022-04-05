@@ -21,6 +21,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(helmet());
 
+//Middleware
+//const authenticateUser = require("./src/middleware/auth");
+
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
   startupDebugger("Enabled Morgon......");
