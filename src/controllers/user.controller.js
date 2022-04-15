@@ -26,14 +26,41 @@ const saveUser = async (request, response) => {
 };
 
 const getAllUsersDetails = async (request, response) => {
+  const limit = 0;
+  const skip = 0;
+  const totalRecordCount = 0;
+  const totalPageCount = 0;
+  const totalPages = 0;
+  const page = 0;
+
   try {
     const { userRole, searchText } = request.query;
 
-    const userDetails = await User.find();
+    let query = await User.find();
 
-    if (userRole !== "all") {
-      const userDetails = await User.find(userRole);
+    if (userRole > 0) {
+      query = await query.find(userRole);
     }
+    if (searchText) {
+      query = await query.find(searchText);
+    }
+
+    page = parseInt(request.query.page) || 1;
+    limit = parseInt(request.query.limit) || 10;
+    skip = (page - 1) * limit;
+
+    query = query.skip(skip).limit(limit);
+
+    const userDetails = await query;
+
+    totalRecordCount = userDetails.length;
+    totalPageCount = Math.ceil(totalRecordCount / limit);
+
+    request.status(200).json({
+      userDetails,
+      totalRecordCount,
+      totalPageCount,
+    });
   } catch (error) {
     response.status(400).json(error.message);
   }
@@ -41,4 +68,5 @@ const getAllUsersDetails = async (request, response) => {
 
 module.exports = {
   saveUser,
+  getAllUsersDetails,
 };

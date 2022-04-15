@@ -35,11 +35,17 @@ const userSchema = new Schema({
     type: Date,
     required: true,
   },
+  userProfile: {
+    type: String,
+    required: false,
+    default: null,
+  },
   role: {
     type: [
       {
         type: String,
         enum: ["student", "admin", "lecurer"],
+        required: true,
         default: ["student"],
       },
     ],
