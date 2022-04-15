@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const { request } = require("express");
 
 const saveUser = async (request, response) => {
   try {
@@ -66,7 +67,26 @@ const getAllUsersDetails = async (request, response) => {
   }
 };
 
+const deleteUser = async (request, response) => {
+  try {
+    const userId = request.params.id;
+
+    let query = await User.findById(userId);
+
+    if (!query) {
+      return response.status(200).json("Cannot Find User,Please Try Again");
+    }
+
+    query = await User.findByIdAndDelete(userId);
+
+    response.status(200).json("User has been delete successfully");
+  } catch (err) {
+    response.status(400).json(err.message);
+  }
+};
+
 module.exports = {
   saveUser,
   getAllUsersDetails,
+  deleteUser,
 };
