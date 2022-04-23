@@ -6,6 +6,7 @@ const {
   getAllUsersDetails,
   deleteUser,
   getUserById,
+  getAllUsers,
 } = require("../controllers/user.controller");
 
 //@route POST api/user/
@@ -15,6 +16,10 @@ router.post("/", auth, saveUser);
 //@route GET api/user/getAllUsersDetails
 //@desc Get All Users
 router.get("/getAllUsersDetails", getAllUsersDetails);
+
+//@route GET api/user/all
+//@desc Get All Users
+router.get("/all", getAllUsers);
 
 //@route Delete api/user/id
 //@desc Delete User

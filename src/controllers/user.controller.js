@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const { response } = require("express");
 
 /**
  * @param {user} userData
@@ -102,9 +103,20 @@ const getUserById = async (request, response) => {
     response.status(400).json(error.message);
   }
 };
+
+const getAllUsers = async (request, response) => {
+  try {
+    const userDetails = await User.find().select("-password");
+
+    response.json(userDetails);
+  } catch (error) {
+    response.status(400).json(error.message);
+  }
+};
 module.exports = {
   saveUser,
   getAllUsersDetails,
   deleteUser,
   getUserById,
+  getAllUsers,
 };
