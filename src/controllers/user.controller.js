@@ -1,6 +1,10 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
-const { request } = require("express");
+
+/**
+ * @param {user} userData
+ * @returns {Document} User document
+ */
 
 const saveUser = async (request, response) => {
   try {
@@ -85,8 +89,22 @@ const deleteUser = async (request, response) => {
   }
 };
 
+const getUserById = async (request, response) => {
+  try {
+    const userId = request.params.id;
+    if (userId != null) {
+      const user = await User.findById(userId).select("-password");
+      response.json(user);
+    } else {
+      return response.status(200).json("Cannot Find User,Please Try Again");
+    }
+  } catch (error) {
+    response.status(400).json(error.message);
+  }
+};
 module.exports = {
   saveUser,
   getAllUsersDetails,
   deleteUser,
+  getUserById,
 };

@@ -5,6 +5,7 @@ const {
   saveUser,
   getAllUsersDetails,
   deleteUser,
+  getUserById,
 } = require("../controllers/user.controller");
 
 //@route POST api/user/
@@ -18,4 +19,8 @@ router.get("/getAllUsersDetails", getAllUsersDetails);
 //@route Delete api/user/id
 //@desc Delete User
 router.delete("/:id", deleteUser);
+
+//@route GET api/user/getUserById/id
+//@desc GET UserById
+router.get("/:id", getUserById);
 module.exports = router;
