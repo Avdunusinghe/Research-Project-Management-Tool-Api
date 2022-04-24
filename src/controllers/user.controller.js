@@ -1,11 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
-const { response } = require("express");
-
-/**
- * @param {user} userData
- * @returns {Document} User document
- */
+const sendUserRegisteredEmail = require("../utils/email.helper");
 
 const saveUser = async (request, response) => {
   try {
@@ -20,6 +15,13 @@ const saveUser = async (request, response) => {
       createOn: new Date().toUTCString(),
       updatedOn: new Date().toUTCString(),
     });
+
+    const userDetails = {
+      email: user.email,
+      password: user.password,
+    };
+
+    sendUserRegisteredEmail(user);
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);

@@ -11,7 +11,7 @@ const {
 
 //@route POST api/user/
 //@description Save User
-router.post("/", auth, saveUser);
+router.post("/", saveUser);
 
 //@route GET api/user/getAllUsersDetails
 //@desc Get All Users
