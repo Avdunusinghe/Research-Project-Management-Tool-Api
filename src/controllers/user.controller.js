@@ -1,36 +1,56 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+
 const sendUserRegisteredEmail = require("../utils/email.helper");
 
 const saveUser = async (request, response) => {
   try {
-    let { firstName, lastName, email, mobileNumber, password } = request.body;
+    let { id, firstName, lastName, email, mobileNumber, password } =
+      request.body;
 
-    let user = new User({
-      firstName,
-      lastName,
-      email,
-      mobileNumber,
-      password,
-      createOn: new Date().toUTCString(),
-      updatedOn: new Date().toUTCString(),
-    });
+    if (id == null) {
+      let user = new User({
+        firstName,
+        lastName,
+        email,
+        mobileNumber,
+        password,
+        createOn: new Date().toUTCString(),
+        updatedOn: new Date().toUTCString(),
+      });
 
-    const userDetails = {
-      email: user.email,
-      password: user.password,
-    };
+      const userDetails = {
+        email: user.email,
+        password: user.password,
+      };
 
-    const isSuccess = sendUserRegisteredEmail(userDetails);
+      const isSuccess = sendUserRegisteredEmail(userDetails);
 
-    if (isSuccess) {
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(user.password, salt);
-      await user.save();
+      if (isSuccess) {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+        await user.save();
 
-      response.status(200).send("User has been save Successfully");
+        response.status(200).send("User has been save Successfully");
+      } else {
+        response.status(400).json("Error,please contact Admin");
+      }
     } else {
-      response.status(400).json("Error,please contact Admin");
+      const isUserAvailable = await User.findById(id);
+
+      if (!isUserAvailable) {
+        return res.status(404).json("Cannot Find User");
+      }
+
+      const userObj = await User.findByIdAndUpdate(id, {
+        firstName,
+        lastName,
+        email,
+        mobileNumber,
+        updatedOn: new Date().toUTCString(),
+      });
+
+      response.status(200).json("User has been  Update SuccessFully");
     }
   } catch (error) {
     response.status(400).json(error.message);
