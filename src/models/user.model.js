@@ -29,17 +29,26 @@ const userSchema = new Schema({
   },
   createOn: {
     type: Date,
-    required: true,
+    required: false,
   },
+  createdBy: { type: Schema.Types.ObjectId, required: false, default: null },
   updatedOn: {
     type: Date,
-    required: true,
+    required: false,
   },
+  updatedBy: { type: Schema.Types.ObjectId, required: false, default: null },
+  userProfile: {
+    type: String,
+    required: false,
+    default: null,
+  },
+
   role: {
     type: [
       {
         type: String,
         enum: ["student", "admin", "lecurer"],
+        required: true,
         default: ["student"],
       },
     ],
