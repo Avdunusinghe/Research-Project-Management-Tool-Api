@@ -21,13 +21,17 @@ const saveUser = async (request, response) => {
       password: user.password,
     };
 
-    sendUserRegisteredEmail(user);
+    const isSuccess = sendUserRegisteredEmail(userDetails);
 
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-    await user.save();
+    if (isSuccess) {
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(user.password, salt);
+      await user.save();
 
-    response.status(200).send("User has been save Successfully");
+      response.status(200).send("User has been save Successfully");
+    } else {
+      response.status(400).json("Error,please contact Admin");
+    }
   } catch (error) {
     response.status(400).json(error.message);
   }

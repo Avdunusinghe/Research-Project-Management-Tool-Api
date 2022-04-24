@@ -5,6 +5,7 @@ function getComapanyEmailSettings() {
     SMTP_PORT: process.env.SMTP_PORT,
     SMTP_HOST: process.env.SMTP_HOST,
     SECURE: process.env.SECURE,
+    SMTP_SERVICE: process.env.SMTP_SERVICE,
   };
 
   return companyEmailSettings;
