@@ -28,17 +28,16 @@ const userSchema = new Schema({
     required: true,
   },
 
-  /*
+  
   specialization:{
      type: String,
-    required: true,
+    required: false,
   },
 
   groupId:{
      type: String,
-    required: true,
+    required: false,
   },
-  */
 
   createOn: {
     type: Date,
