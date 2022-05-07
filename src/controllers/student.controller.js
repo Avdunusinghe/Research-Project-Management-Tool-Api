@@ -57,7 +57,7 @@ const saveStudent = async (request, response) => {
   }
 };
 
-const getAllStudentDetails = async (request, response) => {
+/*const getAllStudentDetails = async (request, response) => {
   const limit = 0;
   const skip = 0;
   const totalRecordCount = 0;
@@ -96,9 +96,9 @@ const getAllStudentDetails = async (request, response) => {
   } catch (error) {
     response.status(400).json(error.message);
   }
-};
+};*/
 
-const deleteStudent = async (request, response) => {
+/*const deleteStudent = async (request, response) => {
   try {
     const studentId = request.params.id;
 
@@ -114,9 +114,9 @@ const deleteStudent = async (request, response) => {
   } catch (err) {
     response.status(400).json(err.message);
   }
-};
+};*/
 
-const getStudentById = async (request, response) => {
+/*const getStudentById = async (request, response) => {
   try {
     const studentId = request.params.id;
     if (studentId != null) {
@@ -128,9 +128,9 @@ const getStudentById = async (request, response) => {
   } catch (error) {
     response.status(400).json(error.message);
   }
-};
+};*/
 
-const getAllStudents = async (request, response) => {
+/*const getAllStudents = async (request, response) => {
   try {
     const studentDetails = await User.find().select("-password");
 
@@ -138,11 +138,98 @@ const getAllStudents = async (request, response) => {
   } catch (error) {
     response.status(400).json(error.message);
   }
+};*/
+
+const requestSupervisor = async (request, response) => {
+  try {
+    let { id, name, groupId, email, mobileNumber, role, description } =
+      request.body;
+
+    if (id == null) {
+      let newSender = new User({
+        name,
+        groupId,
+        email,
+        mobileNumber,
+        role: (role = 1 ? UserRole.Supervisor : UserRole.CoSupervisor),
+        description,
+        createOn: new Date().toUTCString(),
+        updatedOn: new Date().toUTCString(),
+      });
+
+      const newSenderDetails = {
+        email: newSender.email,
+      };
+
+      const isSuccess = sendUserRegisteredEmail(newSenderDetails);
+
+      if (isSuccess) {
+        await newSender.save();
+
+        response.status(200).send("Request Supervisor Has Been Successfully ");
+      } else {
+        response.status(400).json("Error,please try again");
+      }
+    }
+  } catch (error) {
+    response.status(400).json(error.message);
+  }
 };
+/*
+@Document Upload
+*/
+
+const submitDocument = async (req, res) => {
+  const newpath = __dirname + "/files/";
+  const file = req.files.file;
+  const filename = file.name;
+
+  file.mv(`${newpath}${filename}`, (err) => {
+    if (err) {
+      res.status(500).send({ message: "File upload failed", code: 200 });
+    }
+    res.status(200).send({ message: "File Uploaded", code: 200 });
+  });
+};
+/* => {
+  try {
+    const file = fs.createReadStream("./myfile.txt");
+    const title = "Document";
+
+    const form = new FormData();
+    form.append("title", title);
+    form.append("file", file);
+
+    const resp = await axios.post("http://localhost:3000/upload", form, {
+      headers: {
+        ...form.getHeaders(),
+      },
+    });
+
+    if (resp.status === 200) {
+      return "Uploaded the document successfully";
+    }
+  } catch (err) {
+    return new Error(err.message);
+  }
+};
+
+submitDocument().then((resp) => console.log(resp));
+*/
+//Enum
+
+const UserRole = {
+  Supervisor: 1,
+  CoSupervisor: 2,
+};
+Object.freeze(UserRole);
+
 module.exports = {
   saveStudent,
-  getAllStudentDetails,
-  deleteStudent,
-  getStudentById,
-  getAllStudents,
+  //getAllStudentDetails,
+  //deleteStudent,
+  //getStudentById,
+  //getAllStudents,
+  requestSupervisor,
+  submitDocument,
 };

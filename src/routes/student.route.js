@@ -28,4 +28,13 @@ router.delete("/:id", deleteStudent);
 //@route GET api/student/getStudentById/id
 //@desc GET StudentById
 router.get("/:id", getStudentById);
+
+//@route POST api/student/submitDocument
+//@desc submit document
+router.post("/upload", submitDocument);
+
+//@route POST api/student/requestSupervisor
+//@desc request a supervisor
+router.post("/requestSupervisor", requestSupervisor);
+
 module.exports = router;
