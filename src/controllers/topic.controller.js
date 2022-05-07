@@ -27,16 +27,9 @@ const saveTopic = async (request, response) => {
         updatedOn: new Date().toUTCString(),
       });
 
-      const studentGroupDetails = {
-        email: studentgroup.email,
-        password: studentgroup.password,
-      };
-
       const isSuccess = sendTopicRegisteredEmail(topicGroupDetails);
 
       if (isSuccess) {
-        const salt = await bcrypt.genSalt(10);
-        topic.password = await bcrypt.hash(topic.password, salt);
         await topic.save();
 
         response.status(200).send("Topic Group has been save Successfully");
@@ -133,9 +126,6 @@ const getTopicById = async (request, response) => {
   try {
     const topicId = request.params.id;
     if (topicId != null) {
-    //   const topic = await Topic.findById(topicId).select(
-    //     "-password"
-    //   );
       response.json(topic);
     } else {
       return response
