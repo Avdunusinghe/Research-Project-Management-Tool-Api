@@ -37,4 +37,8 @@ router.post("/upload", submitDocument);
 //@desc request a supervisor
 router.post("/requestSupervisor", requestSupervisor);
 
+//@route GET api/student/downloadTemplate
+//@desc Download a Template
+router.get("/getfile", downloadTemplate);
+
 module.exports = router;

@@ -216,6 +216,13 @@ const submitDocument = async (req, res) => {
 
 submitDocument().then((resp) => console.log(resp));
 */
+const downloadTemplate = async (req, res) => {
+  FileLocation = "public/FILE.pdf";
+  file = "File.pdf";
+  res.download(fileLocation, file, (err) => {
+    if (err) console.log(err);
+  });
+};
 //Enum
 
 const UserRole = {
@@ -232,4 +239,5 @@ module.exports = {
   //getAllStudents,
   requestSupervisor,
   submitDocument,
+  downloadTemplate,
 };
