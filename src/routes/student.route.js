@@ -7,6 +7,7 @@ const {
   deleteStudent,
   getStudentById,
   getAllStudents,
+  submitDocument,
 } = require("../controllers/student.controller");
 
 //@route POST api/student/
