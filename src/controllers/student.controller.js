@@ -1,11 +1,14 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 
-const sendUserRegisteredEmail = require("../utils/email.helper");
+const sendStudentRegisteredEmail = require("../utils/email.helper");
 
+/*
+Register Student
+*/
 const saveStudent = async (request, response) => {
   try {
-    let { id, firstName, lastName, email, mobileNumber, password } =
+    let { id, firstName, lastName, email, mobileNumber, password, role } =
       request.body;
 
     if (id == null) {
@@ -15,6 +18,11 @@ const saveStudent = async (request, response) => {
         email,
         mobileNumber,
         password,
+        role: (role = 1
+          ? UserRole.admin
+          : 2
+          ? UserRole.student
+          : UserRole.lecturer),
         createOn: new Date().toUTCString(),
         updatedOn: new Date().toUTCString(),
       });
@@ -27,7 +35,6 @@ const saveStudent = async (request, response) => {
       const isSuccess = sendStudentRegisteredEmail(studentDetails);
 
       if (isSuccess) {
-        const salt = await bcrypt.genSalt(10);
         student.password = await bcrypt.hash(user.password, salt);
         await student.save();
 
@@ -36,9 +43,9 @@ const saveStudent = async (request, response) => {
         response.status(400).json("Error,please contact Admin");
       }
     } else {
-      const isstudentAvailable = await User.findById(id);
+      const isStudentAvailable = await User.findById(id);
 
-      if (!isUserAvailable) {
+      if (!isStudentAvailable) {
         return res.status(404).json("Cannot Find Student");
       }
 
@@ -57,7 +64,11 @@ const saveStudent = async (request, response) => {
   }
 };
 
-/*const getAllStudentDetails = async (request, response) => {
+/*
+Get All Student List
+*/
+
+const getAllStudentDetails = async (request, response) => {
   const limit = 0;
   const skip = 0;
   const totalRecordCount = 0;
@@ -96,9 +107,13 @@ const saveStudent = async (request, response) => {
   } catch (error) {
     response.status(400).json(error.message);
   }
-};*/
+};
 
-/*const deleteStudent = async (request, response) => {
+/*
+Delete Student
+*/
+
+const deleteStudent = async (request, response) => {
   try {
     const studentId = request.params.id;
 
@@ -114,9 +129,13 @@ const saveStudent = async (request, response) => {
   } catch (err) {
     response.status(400).json(err.message);
   }
-};*/
+};
 
-/*const getStudentById = async (request, response) => {
+/*
+Get Student By Id
+*/
+
+const getStudentById = async (request, response) => {
   try {
     const studentId = request.params.id;
     if (studentId != null) {
@@ -128,9 +147,12 @@ const saveStudent = async (request, response) => {
   } catch (error) {
     response.status(400).json(error.message);
   }
-};*/
+};
 
-/*const getAllStudents = async (request, response) => {
+/*
+Get All Students
+*/
+const getAllStudents = async (request, response) => {
   try {
     const studentDetails = await User.find().select("-password");
 
@@ -138,7 +160,11 @@ const saveStudent = async (request, response) => {
   } catch (error) {
     response.status(400).json(error.message);
   }
-};*/
+};
+
+/*
+ Student Request a supervisor
+*/
 
 const requestSupervisor = async (request, response) => {
   try {
@@ -151,17 +177,15 @@ const requestSupervisor = async (request, response) => {
         groupId,
         email,
         mobileNumber,
-        role: (role = 1 ? UserRole.Supervisor : UserRole.CoSupervisor),
+        role: (role = 1
+          ? UserRole.admin
+          : 2
+          ? UserRole.student
+          : UserRole.lecturer),
         description,
         createOn: new Date().toUTCString(),
         updatedOn: new Date().toUTCString(),
       });
-
-      const newSenderDetails = {
-        email: newSender.email,
-      };
-
-      const isSuccess = sendUserRegisteredEmail(newSenderDetails);
 
       if (isSuccess) {
         await newSender.save();
@@ -175,6 +199,7 @@ const requestSupervisor = async (request, response) => {
     response.status(400).json(error.message);
   }
 };
+
 /*
 @Document Upload
 */
@@ -216,6 +241,10 @@ const submitDocument = async (req, res) => {
 
 submitDocument().then((resp) => console.log(resp));
 */
+
+/*
+Download Template
+*/
 const downloadTemplate = async (req, res) => {
   FileLocation = "public/FILE.pdf";
   file = "File.pdf";
@@ -223,20 +252,22 @@ const downloadTemplate = async (req, res) => {
     if (err) console.log(err);
   });
 };
+
 //Enum
 
 const UserRole = {
-  Supervisor: 1,
-  CoSupervisor: 2,
+  admin: 1,
+  student: 2,
+  lecturer: 3,
 };
 Object.freeze(UserRole);
 
 module.exports = {
   saveStudent,
-  //getAllStudentDetails,
-  //deleteStudent,
-  //getStudentById,
-  //getAllStudents,
+  getAllStudentDetails,
+  deleteStudent,
+  getStudentById,
+  getAllStudents,
   requestSupervisor,
   submitDocument,
   downloadTemplate,

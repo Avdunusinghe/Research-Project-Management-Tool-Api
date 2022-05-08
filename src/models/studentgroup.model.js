@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const jwt = require("jsonwebtoken");
 
 const studentGroupSchema = new Schema({
   groupName: {
@@ -100,15 +99,6 @@ const studentGroupSchema = new Schema({
     default: null,
   },
 });
-
-studentGroupSchema.methods.genarateJwtToken = async function () {
-  const studentGroup = this;
-  const jwtSecret = process.env.jwtPrivateKey;
-
-  const token = jwt.sign({ _id: studentGroup._id }, jwtSecret);
-  studentGroup.token = token;
-  return token;
-};
 
 module.exports = StudentGroup = mongoose.model(
   "StudentGroup",
