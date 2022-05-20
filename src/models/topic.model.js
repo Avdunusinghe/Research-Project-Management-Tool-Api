@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+<<<<<<< HEAD
 const jwt = require("jsonwebtoken");
 
 const studentGroupSchema = new Schema({
@@ -135,3 +136,42 @@ topicSchema.methods.genarateJwtToken = async function () {
     "Topic",
     topicSchema
   );
+=======
+
+const topicSchema = new Schema({
+  topicName: {
+    type: String,
+    required: true,
+  },
+  subjectName: {
+    type: String,
+    required: true,
+  },
+  subjectId: {
+    type: String,
+    required: true,
+  },
+  groupId: {
+    type: String,
+    required: true,
+  },
+
+  createOn: {
+    type: Date,
+    required: false,
+  },
+  createdBy: { type: Schema.Types.ObjectId, required: false, default: null },
+  updatedOn: {
+    type: Date,
+    required: false,
+  },
+  updatedBy: { type: Schema.Types.ObjectId, required: false, default: null },
+  userProfile: {
+    type: String,
+    required: false,
+    default: null,
+  },
+});
+
+module.exports = Topic = mongoose.model("Topic", topicSchema);
+>>>>>>> 261d3a3a70d7a51d5d38aea107c0677bd613774a

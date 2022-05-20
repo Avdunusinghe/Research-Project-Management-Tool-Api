@@ -1,4 +1,5 @@
 const Topic = require("../models/topic.model");
+<<<<<<< HEAD
 const bcrypt = require("bcrypt");
 
 const saveTopic = async (request, response) => {
@@ -23,10 +24,24 @@ const saveTopic = async (request, response) => {
         studentId,
         studentName,
         studentEmail,
+=======
+
+const registerTopic = async (request, response) => {
+  try {
+    let { id, topicName, subjectName, subjectId, groupId } = request.body;
+
+    if (id == null) {
+      let topic = new Topic({
+        topicName,
+        subjectName,
+        subjectId,
+        groupId,
+>>>>>>> 261d3a3a70d7a51d5d38aea107c0677bd613774a
         createOn: new Date().toUTCString(),
         updatedOn: new Date().toUTCString(),
       });
 
+<<<<<<< HEAD
       const isSuccess = sendTopicRegisteredEmail(topicGroupDetails);
 
       if (isSuccess) {
@@ -55,12 +70,38 @@ const saveTopic = async (request, response) => {
       });
 
       response.status(200).json("Topic Group has been  Update SuccessFully");
+=======
+      if (isSuccess) {
+        await topic.save();
+
+        response.status(200).send("Register Topic Successfully");
+      } else {
+        response.status(400).json("Error,please Try Again");
+      }
+    } else {
+      const isTopicGroupAvailable = await Topic.findById(id);
+
+      if (!isTopicGroupAvailable) {
+        return res.status(404).json("Cannot Find the Topic");
+      }
+
+      const topicObj = await Topic.findByIdAndUpdate(id, {
+        topicName,
+        subjectName,
+        subjectId,
+        groupId,
+        updatedOn: new Date().toUTCString(),
+      });
+
+      response.status(200).json("Topic has been  Update SuccessFully");
+>>>>>>> 261d3a3a70d7a51d5d38aea107c0677bd613774a
     }
   } catch (error) {
     response.status(400).json(error.message);
   }
 };
 
+<<<<<<< HEAD
 // const getAllTopicDetails = async (request, response) => {
 //   const limit = 0;
 //   const skip = 0;
@@ -154,3 +195,8 @@ module.exports = {
   getTopicById,
   getAllTopics,
 };
+=======
+module.exports = {
+  registerTopic,
+};
+>>>>>>> 261d3a3a70d7a51d5d38aea107c0677bd613774a

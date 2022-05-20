@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+<<<<<<< HEAD
 const auth = require("../middleware/auth");
 const {
     saveTopic,
@@ -29,3 +30,13 @@ router.delete("/:id", deleteTopic);
 //@desc GET TopicById
 router.get("/:id", getTopicById);
 module.exports = router;
+=======
+
+const { registerTopic } = require("../controllers/topic.controller");
+
+//@route POST api/topic/register
+//@description Register topic
+router.post("/", registerTopic);
+
+module.exports = router;
+>>>>>>> 261d3a3a70d7a51d5d38aea107c0677bd613774a

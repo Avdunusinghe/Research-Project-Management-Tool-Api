@@ -44,6 +44,7 @@ app.get("/", (request, response) => {
 app.use("/api/auth", require("./src/routes/auth.route"));
 app.use("/api/user", require("./src/routes/user.route"));
 
+
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
