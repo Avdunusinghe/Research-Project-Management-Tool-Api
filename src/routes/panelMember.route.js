@@ -7,7 +7,10 @@ const {
   deletePanelMember,
   getPanelMemberById,
   getAllPanelMembers,
+  evaluateTopics,
+  evaluateStudentPresentation,
 } = require("../controllers/panelMember.controller");
+const { route } = require("./topic.route");
 
 //@route POST api/panelMember/
 //@description Save panelMember
@@ -28,5 +31,13 @@ router.delete("/:id", deletePanelMember);
 //@route GET api/panelMember/getPanelMemberById/id
 //@desc GET PanelMemberById
 router.get("/:id", getPanelMemberById);
+
+//@route POST api/panelMember/evaluateTopics
+//@desc Evaluate topics
+router.post("/evaluateTopics", evaluateTopics);
+
+//@route POST api/panelMember/evaluateStudentPresentation
+//@desc Evaluate student presentaation
+router.post("/evaluateStudentPresentation", evaluateStudentPresentation);
 
 module.exports = router;

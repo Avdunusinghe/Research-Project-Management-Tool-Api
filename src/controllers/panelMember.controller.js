@@ -57,7 +57,7 @@ const savePanelMember = async (request, response) => {
   }
 };
 
-/*const getAllPanelMemberDetails = async (request, response) => {
+const getAllPanelMemberDetails = async (request, response) => {
   const limit = 0;
   const skip = 0;
   const totalRecordCount = 0;
@@ -88,9 +88,9 @@ const savePanelMember = async (request, response) => {
   } catch (error) {
     response.status(400).json(error.message);
   }
-};*/
+};
 
-/*const deletePanelMember = async (request, response) => {
+const deletePanelMember = async (request, response) => {
   try {
     const panelMemberId = request.params.id;
     let query = await User.findById(userId);
@@ -102,9 +102,9 @@ const savePanelMember = async (request, response) => {
   } catch (err) {
     response.status(400).json(err.message);
   }
-};*/
+};
 
-/*const getPanelMemberById = async (request, response) => {
+const getPanelMemberById = async (request, response) => {
   try {
     const panelMemberId = request.params.id;
     if (panelMemberId != null) {
@@ -116,23 +116,31 @@ const savePanelMember = async (request, response) => {
   } catch (error) {
     response.status(400).json(error.message);
   }
-};*/
+};
 
-/*const getAllPanelMembers = async (request, response) => {
+const getAllPanelMembers = async (request, response) => {
   try {
     const panelMemberDetails = await User.find().select("-password");
     response.json(panelMemberDetails);
   } catch (error) {
     response.status(400).json(error.message);
   }
-};*/
+};
 
+const evaluateTopics = async () => {
 
+};
+
+const evaluateStudentPresentation = async () => {
+
+};
 
 module.exports = {
   savePanelMember,
-  //getAllPanelMemberDetails,
-  //deletePanelMember,
-  //getPanelMemberById,
-  //getAllPanelMembers,
+  getAllPanelMemberDetails,
+  deletePanelMember,
+  getPanelMemberById,
+  getAllPanelMembers,
+  evaluateTopics,
+  evaluateStudentPresentation,
 };
