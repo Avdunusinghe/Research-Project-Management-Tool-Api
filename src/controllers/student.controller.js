@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 
 const sendStudentRegisteredEmail = require("../utils/email.helper");
 
@@ -8,21 +9,21 @@ Register Student
 */
 const saveStudent = async (request, response) => {
   try {
-    let { id, firstName, lastName, email, mobileNumber, password, role } =
+    let { id, firstname, lastname, email, mobilenumber, password } =
       request.body;
 
     if (id == null) {
       let student = new User({
-        firstName,
-        lastName,
+        firstname,
+        lastname,
         email,
-        mobileNumber,
+        mobilenumber,
         password,
-        role: (role = 1
-          ? UserRole.admin
-          : 2
-          ? UserRole.student
-          : UserRole.lecturer),
+        //role: (role = 1
+        // ? UserRole.admin
+        //: 2
+        //? UserRole.student
+        //: UserRole.lecturer),
         createOn: new Date().toUTCString(),
         updatedOn: new Date().toUTCString(),
       });
@@ -32,10 +33,11 @@ const saveStudent = async (request, response) => {
         password: student.password,
       };
 
-      const isSuccess = sendStudentRegisteredEmail(studentDetails);
-
+      // const isSuccess = sendStudentRegisteredEmail(studentDetails);
+      const isSuccess = true;
       if (isSuccess) {
-        student.password = await bcrypt.hash(user.password, salt);
+        // const salt = await bcrypt.genSalt(10);
+        //student.password = await bcrypt.hash(student.password, salt);
         await student.save();
 
         response.status(200).send("Student has been save Successfully");
@@ -50,10 +52,10 @@ const saveStudent = async (request, response) => {
       }
 
       const studentObj = await User.findByIdAndUpdate(id, {
-        firstName,
-        lastName,
+        firstname,
+        lastname,
         email,
-        mobileNumber,
+        mobilenumber,
         updatedOn: new Date().toUTCString(),
       });
 
@@ -138,6 +140,7 @@ Get Student By Id
 const getStudentById = async (request, response) => {
   try {
     const studentId = request.params.id;
+    if (!mongoose.Types.ObjectId.isValid(studentId)) return false;
     if (studentId != null) {
       const student = await User.findById(studentId).select("-password");
       response.json(student);
@@ -157,44 +160,6 @@ const getAllStudents = async (request, response) => {
     const studentDetails = await User.find().select("-password");
 
     response.json(studentDetails);
-  } catch (error) {
-    response.status(400).json(error.message);
-  }
-};
-
-/*
- Student Request a supervisor
-*/
-
-const requestSupervisor = async (request, response) => {
-  try {
-    let { id, name, groupId, email, mobileNumber, role, description } =
-      request.body;
-
-    if (id == null) {
-      let newSender = new User({
-        name,
-        groupId,
-        email,
-        mobileNumber,
-        role: (role = 1
-          ? UserRole.admin
-          : 2
-          ? UserRole.student
-          : UserRole.lecturer),
-        description,
-        createOn: new Date().toUTCString(),
-        updatedOn: new Date().toUTCString(),
-      });
-
-      if (isSuccess) {
-        await newSender.save();
-
-        response.status(200).send("Request Supervisor Has Been Successfully ");
-      } else {
-        response.status(400).json("Error,please try again");
-      }
-    }
   } catch (error) {
     response.status(400).json(error.message);
   }
@@ -268,7 +233,6 @@ module.exports = {
   deleteStudent,
   getStudentById,
   getAllStudents,
-  requestSupervisor,
   submitDocument,
   downloadTemplate,
 };

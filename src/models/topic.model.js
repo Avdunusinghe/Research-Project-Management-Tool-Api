@@ -6,17 +6,29 @@ const topicSchema = new Schema({
     type: String,
     required: true,
   },
-  subjectName: {
+  subject: {
     type: String,
     required: true,
   },
-  subjectId: {
+  groupleaderId: {
+    type: String,
+    required: true,
+  },
+  groupleadername: {
     type: String,
     required: true,
   },
   groupId: {
     type: String,
     required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  isAccept: {
+    type: Boolean,
+    default: false,
   },
 
   createOn: {
