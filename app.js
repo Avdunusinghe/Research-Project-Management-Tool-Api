@@ -43,6 +43,7 @@ app.get("/", (request, response) => {
 });
 app.use("/api/auth", require("./src/routes/auth.route"));
 app.use("/api/user", require("./src/routes/user.route"));
+app.use("/api/panelMember", require("./src/routes/panelMember.route"));
 
 
 const port = process.env.PORT || 4000;

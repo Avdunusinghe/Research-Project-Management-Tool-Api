@@ -10,7 +10,6 @@ const {
   evaluateTopics,
   evaluateStudentPresentation,
 } = require("../controllers/panelMember.controller");
-const { route } = require("./topic.route");
 
 //@route POST api/panelMember/
 //@description Save panelMember

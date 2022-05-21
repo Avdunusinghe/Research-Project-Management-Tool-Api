@@ -19,16 +19,17 @@ const savePanelMember = async (request, response) => {
         updatedOn: new Date().toUTCString(),
       });
 
-      const panelMemberDetails = {
-        email: panelMember.email,
-        password: panelMember.password,
-      };
+      // const panelMemberDetails = {
+      //   email: panelMember.email,
+      //   password: panelMember.password,
+      // };
 
-      const isSuccess = sendPanelMemberRegisteredEmail(panelMemberDetails);
+      //const isSuccess = sendPanelMemberRegisteredEmail(panelMemberDetails);
+      const isSuccess = true;
 
       if (isSuccess) {
-        const salt = await bcrypt.genSalt(10);
-        panelMember.password = await bcrypt.hash(user.password, salt);
+        //const salt = await bcrypt.genSalt(10);
+        //panelMember.password = await bcrypt.hash(user.password, salt);
         await panelMember.save();
 
         response.status(200).send("PanelMember has been save Successfully");
@@ -93,7 +94,7 @@ const getAllPanelMemberDetails = async (request, response) => {
 const deletePanelMember = async (request, response) => {
   try {
     const panelMemberId = request.params.id;
-    let query = await User.findById(userId);
+    let query = await User.findById(panelMemberId);
     if (!query) {
       return response.status(200).json("Cannot Find User,Please Try Again");
     }
