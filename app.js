@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
+var filtUpload = require("express-fileupload");
 const startupDebugger = require("debug")("app:startup");
 const databaseConnection = require("./src/utils/database.connection");
 const logger = require("./logger");
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 //Enable All CORS Requests
 app.use(cors());
 app.use(helmet());
+app.use(filtUpload());
 
 //Middleware
 //const authenticateUser = require("./src/middleware/auth");
@@ -43,6 +45,7 @@ app.get("/", (request, response) => {
 });
 app.use("/api/auth", require("./src/routes/auth.route"));
 app.use("/api/user", require("./src/routes/user.route"));
+app.use("/api/document", require("./src/routes/document.route"));
 
 const port = process.env.PORT || 4000;
 
