@@ -3,15 +3,15 @@ const { Schema } = mongoose;
 const jwt = require("jsonwebtoken");
 
 const userSchema = new Schema({
-  firstName: {
+  firstname: {
     type: String,
     required: true,
   },
-  lastName: {
+  lastname: {
     type: String,
     required: true,
   },
-  studentId: {
+  studentid: {
     type: String,
   },
   email: {
@@ -19,7 +19,7 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
-  mobileNumber: {
+  mobilenumber: {
     type: String,
     required: true,
   },
@@ -27,6 +27,17 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+
+  specialization: {
+    type: String,
+    required: false,
+  },
+
+  groupid: {
+    type: String,
+    required: false,
+  },
+
   createOn: {
     type: Date,
     required: false,

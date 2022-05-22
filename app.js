@@ -43,6 +43,11 @@ app.get("/", (request, response) => {
 });
 app.use("/api/auth", require("./src/routes/auth.route"));
 app.use("/api/user", require("./src/routes/user.route"));
+app.use("/api/student", require("./src/routes/student.route"));
+app.use("/api/studentGroup", require("./src/routes/studentGroup.route"));
+app.use("/api/topic", require("./src/routes/topic.route"));
+app.use("/api/document", require("./src/routes/documentUpload.route"));
+app.use("/api/requests", require("./src/routes/requests.route"));
 
 const port = process.env.PORT || 4000;
 
