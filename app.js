@@ -27,21 +27,21 @@ app.use(filtUpload());
 //const authenticateUser = require("./src/middleware/auth");
 
 if (app.get("env") === "development") {
-  app.use(morgan("tiny"));
-  startupDebugger("Enabled Morgon......");
+	app.use(morgan("tiny"));
+	startupDebugger("Enabled Morgon......");
 }
 
 //Connect Database
 app.use(logger);
 
 app.use((request, response, next) => {
-  console.log("Authenticating...");
-  next();
+	console.log("Authenticating...");
+	next();
 });
 
 //routes
 app.get("/", (request, response) => {
-  response.send("<h3>Welcome Research Project Management Tool API</h3>");
+	response.send("<h3>Welcome Research Project Management Tool API</h3>");
 });
 app.use("/api/auth", require("./src/routes/auth.route"));
 app.use("/api/user", require("./src/routes/user.route"));
@@ -55,8 +55,8 @@ app.use("/api/requests", require("./src/routes/requests.route"));
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
-  databaseConnection();
-  console.log(`Research Management Project Tool Web API: ${port}`);
+	databaseConnection();
+	console.log(`Research Management Project Tool Web API: ${port}`);
 });
 
 //Production URL=>https://rpmt-backend-api.herokuapp.com/

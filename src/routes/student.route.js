@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
 const {
-  saveStudent,
-  getAllStudentDetails,
-  deleteStudent,
-  getStudentById,
-  getAllStudents,
-  submitDocument,
-  downloadTemplate,
+	saveStudent,
+	getAllStudentDetails,
+	deleteStudent,
+	getStudentById,
+	getAllStudents,
+	submitDocument,
+	downloadTemplate,
 } = require("../controllers/student.controller");
 
 //@route POST api/student/
