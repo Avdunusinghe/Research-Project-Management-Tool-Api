@@ -1,10 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  registerTopic,
-  getAllTopics,
-} = require("../controllers/topic.controller");
+const { registerTopic, getAllTopics } = require("../controllers/topic.controller");
 
 //@route POST api/topic/register
 //@description Register topic

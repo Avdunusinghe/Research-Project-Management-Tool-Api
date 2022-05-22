@@ -1,10 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
-const {
-  uploadDocument,
-  retrieveUploadedDocument,
-} = require("../controllers/documentUpload.controller");
+const { uploadDocument, retrieveUploadedDocument } = require("../controllers/documentUpload.controller");
 
 //@route POST api/document/
 //@description upload or submit document
