@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 
 const login = async (request, response) => {
   try {
-    console.log(request.body.loginModel);
     let user = await User.findOne({ email: request.body.email });
 
     if (!user) {
@@ -17,8 +16,12 @@ const login = async (request, response) => {
         request.body.password,
         user.password
       );
+
       if (!isValidPassword) {
-        return response.status(400).send("Invalid email or password");
+        return response.json({
+          isSuccess: false,
+          message: "Password Incorrect",
+        });
       }
 
       const token = await user.genarateJwtToken();
