@@ -8,3 +8,5 @@ coverage
 **/.git
 **/.svn
 **/.hg
+README.md
+LICENSE
