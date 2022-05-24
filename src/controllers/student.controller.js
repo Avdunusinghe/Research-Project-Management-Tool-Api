@@ -9,8 +9,17 @@ Register Student
 */
 const saveStudent = async (request, response) => {
   try {
-    let { id, firstname, lastname, email, mobilenumber, password } =
-      request.body;
+    let {
+      id,
+      firstname,
+      lastname,
+      email,
+      mobilenumber,
+      password,
+      faculty,
+      department,
+      role,
+    } = request.body;
 
     if (id == null) {
       let student = new User({
@@ -19,6 +28,9 @@ const saveStudent = async (request, response) => {
         email,
         mobilenumber,
         password,
+        faculty,
+        department,
+        role,
         //role: (role = 1
         // ? UserRole.admin
         //: 2

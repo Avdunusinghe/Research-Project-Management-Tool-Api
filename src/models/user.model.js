@@ -27,12 +27,14 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-
-  specialization: {
+  faculty: {
     type: String,
     required: false,
   },
-
+  department: {
+    type: String,
+    required: false,
+  },
   groupid: {
     type: String,
     required: false,

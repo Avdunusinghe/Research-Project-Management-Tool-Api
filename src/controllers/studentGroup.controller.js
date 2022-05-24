@@ -9,7 +9,19 @@ const saveStudentGroup = async (request, response) => {
       let studentgroup = new StudentGroup({
         groupName,
         subjectName,
-        memberDetails,
+        firstStudentname,
+        firstStudentEmai,
+        firstStudentRegNo,
+        secondStudentname,
+        secondStudentEmail,
+        secondStudentRegNo,
+        thirdStudentname,
+        thirdStudentEmail,
+        thirdStudentRegNo,
+        fourthStudentname,
+        fourthStudentEmail,
+        forthStudentRegNo,
+
         createOn: new Date().toUTCString(),
         updatedOn: new Date().toUTCString(),
       });
