@@ -22,7 +22,17 @@ const login = async (request, response) => {
 			}
 
 			const token = await user.genarateJwtToken();
-			response.header("RPMT-auth-token", token).send();
+			currentUserModel = {
+				token: token,
+				userName: user.firstName,
+				isAdmin: user.isAdmin,
+				isPanelMember: user.isPanelMember,
+				isSupervisor: user.isSupervisor,
+				isLecure: user.isLecure,
+				isStudent: user.isStudent,
+				isLogged: true,
+			};
+			response.header("RPMT-auth-token", token).json(currentUserModel).send();
 		}
 	} catch (error) {
 		console.error(error);
