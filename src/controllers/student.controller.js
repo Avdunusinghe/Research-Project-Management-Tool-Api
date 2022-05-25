@@ -18,7 +18,7 @@ const saveStudent = async (request, response) => {
       password,
       faculty,
       department,
-      role,
+      isStudent,
     } = request.body;
 
     if (id == null) {
@@ -30,12 +30,7 @@ const saveStudent = async (request, response) => {
         password,
         faculty,
         department,
-        role,
-        //role: (role = 1
-        // ? UserRole.admin
-        //: 2
-        //? UserRole.student
-        //: UserRole.lecturer),
+        isStudent: true,
         createOn: new Date().toUTCString(),
         updatedOn: new Date().toUTCString(),
       });
