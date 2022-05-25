@@ -3,9 +3,9 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 
 const {
-  saveStudentGroup,
-  getAllStudentsGroups,
-  getStudentGroupById,
+	saveStudentGroup,
+	getAllStudentsGroups,
+	getStudentGroupById,
 } = require("../controllers/studentGroup.controller");
 
 //@route POST api/studentGroup/

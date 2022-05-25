@@ -3,32 +3,42 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 
 const login = async (request, response) => {
-  try {
-    console.log(request.body.loginModel);
-    let user = await User.findOne({ email: request.body.email });
+	try {
+		let user = await User.findOne({ email: request.body.email });
 
-    if (!user) {
-      return response.json({
-        isSuccess: false,
-        message: "User Not Resgisterd",
-      });
-    } else {
-      const isValidPassword = await bcrypt.compare(
-        request.body.password,
-        user.password
-      );
-      if (!isValidPassword) {
-        return response.status(400).send("Invalid email or password");
-      }
+		if (!user) {
+			return response.json({
+				isSuccess: false,
+				message: "User Not Resgisterd",
+			});
+		} else {
+			const isValidPassword = await bcrypt.compare(request.body.password, user.password);
 
-      const token = await user.genarateJwtToken();
-      response.header("RPMT-auth-token", token).send();
-    }
-  } catch (error) {
-    console.error(error);
-  }
+			if (!isValidPassword) {
+				return response.json({
+					isSuccess: false,
+					message: "Password Incorrect",
+				});
+			}
+
+			const token = await user.genarateJwtToken();
+			currentUserModel = {
+				token: token,
+				userName: user.firstName,
+				isAdmin: user.isAdmin,
+				isPanelMember: user.isPanelMember,
+				isSupervisor: user.isSupervisor,
+				isLecure: user.isLecure,
+				isStudent: user.isStudent,
+				isLogged: true,
+			};
+			response.header("RPMT-auth-token", token).json(currentUserModel).send();
+		}
+	} catch (error) {
+		console.error(error);
+	}
 };
 
 module.exports = {
-  login,
+	login,
 };
