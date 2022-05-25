@@ -1,31 +1,32 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const studentGroupSchema = new Schema({
-	groupName: {
+const requestSchema = new Schema({
+	groupleaderName: {
 		type: String,
 		required: true,
 	},
-	subjectName: {
+	groupleaderId: {
 		type: String,
 		required: true,
 	},
-	memberDetails: [
-		{
-			name: {
-				type: String,
-				required: true,
-			},
-			email: {
-				type: String,
-				required: true,
-			},
-			regNumber: {
-				type: String,
-				required: true,
-			},
-		},
-	],
+	groupleaderEmail: {
+		type: String,
+		required: true,
+	},
+	groupId: {
+		type: String,
+		required: true,
+	},
+	description: {
+		type: String,
+		required: true,
+	},
+	isAccept: {
+		type: Boolean,
+		default: false,
+	},
+
 	createOn: {
 		type: Date,
 		required: false,
@@ -43,4 +44,4 @@ const studentGroupSchema = new Schema({
 	},
 });
 
-module.exports = StudentGroup = mongoose.model("StudentGroup", studentGroupSchema);
+module.exports = Requests = mongoose.model("Requests", requestSchema);

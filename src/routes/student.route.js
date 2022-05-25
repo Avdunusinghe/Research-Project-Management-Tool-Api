@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
 const {
-  saveStudent,
-  getAllStudentDetails,
-  deleteStudent,
-  getStudentById,
-  getAllStudents,
-  submitDocument,
+	saveStudent,
+	getAllStudentDetails,
+	deleteStudent,
+	getStudentById,
+	getAllStudents,
+	submitDocument,
+	downloadTemplate,
 } = require("../controllers/student.controller");
 
 //@route POST api/student/
@@ -33,10 +34,6 @@ router.get("/:id", getStudentById);
 //@route POST api/student/submitDocument
 //@desc submit document
 router.post("/upload", submitDocument);
-
-//@route POST api/student/requestSupervisor
-//@desc request a supervisor
-router.post("/requestSupervisor", requestSupervisor);
 
 //@route GET api/student/downloadTemplate
 //@desc Download a Template
