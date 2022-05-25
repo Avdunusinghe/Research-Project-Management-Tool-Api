@@ -106,7 +106,13 @@ const userSchema = new Schema({
 		default: false,
 	},
 
-	isSudent: {
+	isCoSupervisor: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
+
+	isStudent: {
 		type: Boolean,
 		required: false,
 		default: false,
