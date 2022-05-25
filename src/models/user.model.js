@@ -44,6 +44,11 @@ const userSchema = new Schema({
 		required: true,
 	},
 
+	department: {
+		type: String,
+		required: false,
+	},
+
 	password: {
 		type: String,
 		required: true,

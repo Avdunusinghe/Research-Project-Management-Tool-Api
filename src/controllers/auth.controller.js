@@ -32,7 +32,7 @@ const login = async (request, response) => {
 				isStudent: user.isStudent,
 				isLogged: true,
 			};
-			response.header("RPMT-auth-token", token).json(currentUserModel).send();
+			response.header("Bearer", token).json(currentUserModel).send();
 		}
 	} catch (error) {
 		console.error(error);
