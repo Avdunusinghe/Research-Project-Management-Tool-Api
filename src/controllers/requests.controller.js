@@ -12,13 +12,7 @@ const requestSupervisor = async (request, response) => {
 			groupleaderName,
 			groupleaderId,
 			groupleaderEmail,
-			groupId,
-			mobileNumber,
-			// role: (role = 1
-			// ? UserRole.admin
-			//: 2
-			//? UserRole.student
-			//: UserRole.lecturer),
+			groupName,
 			description,
 			isAccept,
 		} = request.body;
@@ -28,13 +22,7 @@ const requestSupervisor = async (request, response) => {
 				groupleaderName,
 				groupleaderId,
 				groupleaderEmail,
-				groupId,
-				mobileNumber,
-				// role: (role = 1
-				// ? UserRole.admin
-				//: 2
-				//? UserRole.student
-				//: UserRole.lecturer),
+				groupName,
 				description,
 				isAccept,
 				createOn: new Date().toUTCString(),

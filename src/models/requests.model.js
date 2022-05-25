@@ -14,7 +14,7 @@ const requestSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	groupId: {
+	groupName: {
 		type: String,
 		required: true,
 	},

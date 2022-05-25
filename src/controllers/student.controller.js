@@ -16,7 +16,6 @@ const saveStudent = async (request, response) => {
       mobileNumber,
       password,
       department,
-      isStudent,
     } = request.body;
 
     if (id == null) {
