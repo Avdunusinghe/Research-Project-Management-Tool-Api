@@ -19,7 +19,7 @@ router.get("/getAllUsersDetails", getAllUsersDetails);
 
 //@route GET api/user/all
 //@desc Get All Users
-router.get("/all", getAllUsers);
+router.get("/all", auth, getAllUsers);
 
 //@route Delete api/user/id
 //@desc Delete User
