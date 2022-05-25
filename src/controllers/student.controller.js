@@ -11,9 +11,9 @@ const saveStudent = async (request, response) => {
   try {
     let {
       id,
-      fullname,
+      fullName,
       email,
-      mobilenumber,
+      mobileNumber,
       password,
       department,
       isStudent,
@@ -21,9 +21,9 @@ const saveStudent = async (request, response) => {
 
     if (id == null) {
       let student = new User({
-        fullname,
+        fullName,
         email,
-        mobilenumber,
+        mobileNumber,
         password,
         department,
         isStudent: true,
@@ -55,9 +55,9 @@ const saveStudent = async (request, response) => {
 			}
 
 			const studentObj = await User.findByIdAndUpdate(id, {
-        fullname,
+        fullName,
         email,
-        mobilenumber,
+        mobileNumber,
         password,
         department,
         isStudent: true,

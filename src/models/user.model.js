@@ -11,10 +11,6 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
-  mobilenumber: {
-    type: String,
-    required: true,
-  },
   password: {
     type: String,
     required: true,
@@ -23,7 +19,7 @@ const userSchema = new Schema({
     type: Array,
     required: false,
   },
-	fullname: {
+	fullName: {
 		type: String,
 		required: true,
 	},
@@ -39,7 +35,7 @@ const userSchema = new Schema({
 		unique: true,
 	},
 
-	mobilenumber: {
+	mobileNumber: {
 		type: String,
 		required: true,
 	},
