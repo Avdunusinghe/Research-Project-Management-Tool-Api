@@ -3,7 +3,23 @@ const mongoose = require("mongoose");
 
 const saveStudentGroup = async (request, response) => {
   try {
-    let { id, groupName, subjectName, memberDetails } = request.body;
+    let {
+      id,
+      groupName,
+      subjectName,
+      firstStudentname,
+      firstStudentEmai,
+      firstStudentRegNo,
+      secondStudentname,
+      secondStudentEmail,
+      secondStudentRegNo,
+      thirdStudentname,
+      thirdStudentEmail,
+      thirdStudentRegNo,
+      fourthStudentname,
+      fourthStudentEmail,
+      forthStudentRegNo,
+    } = request.body;
 
     if (id == null) {
       let studentgroup = new StudentGroup({
