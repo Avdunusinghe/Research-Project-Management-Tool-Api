@@ -3,26 +3,32 @@ const { Schema } = mongoose;
 const jwt = require("jsonwebtoken");
 
 const userSchema = new Schema({
-	firstname: {
+	fullName: {
 		type: String,
 		required: true,
 	},
-	lastname: {
-		type: String,
-		required: true,
-	},
+
 	studentid: {
 		type: String,
+		required: false,
 	},
+
 	email: {
 		type: String,
 		required: true,
 		unique: true,
 	},
-	mobilenumber: {
+
+	mobileNumber: {
 		type: String,
 		required: true,
 	},
+
+	department: {
+		type: String,
+		required: false,
+	},
+
 	password: {
 		type: String,
 		required: true,
@@ -42,27 +48,63 @@ const userSchema = new Schema({
 		type: Date,
 		required: false,
 	},
-	createdBy: { type: Schema.Types.ObjectId, required: false, default: null },
+
+	createdBy: {
+		type: Schema.Types.ObjectId,
+		required: false,
+		default: null,
+	},
+
 	updatedOn: {
 		type: Date,
 		required: false,
 	},
-	updatedBy: { type: Schema.Types.ObjectId, required: false, default: null },
+	updatedBy: {
+		type: Schema.Types.ObjectId,
+		required: false,
+		default: null,
+	},
+
 	userProfile: {
 		type: String,
 		required: false,
 		default: null,
 	},
 
-	role: {
-		type: [
-			{
-				type: String,
-				enum: ["student", "admin", "lecurer"],
-				required: true,
-				default: ["student"],
-			},
-		],
+	isAdmin: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
+
+	isPanelMember: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
+
+	isSupervisor: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
+
+	isLecure: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
+
+	isCoSupervisor: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
+
+	isStudent: {
+		type: Boolean,
+		required: false,
+		default: false,
 	},
 });
 

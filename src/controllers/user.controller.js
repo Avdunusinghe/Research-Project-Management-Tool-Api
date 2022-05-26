@@ -5,15 +5,32 @@ const sendUserRegisteredEmail = require("../utils/email.helper");
 
 const saveUser = async (request, response) => {
 	try {
-		let { id, firstName, lastName, email, mobileNumber, password } = request.body;
+		let {
+			id,
+			fullName,
+			email,
+			mobileNumber,
+			password,
+			department,
+			isAdmin,
+			isPanelMember,
+			isSupervisor,
+			isLecure,
+			isSudent,
+		} = request.body;
 
 		if (id == null) {
 			let user = new User({
-				firstName,
-				lastName,
+				fullName,
 				email,
 				mobileNumber,
 				password,
+				department,
+				isAdmin,
+				isPanelMember,
+				isSupervisor,
+				isLecure,
+				isSudent,
 				createOn: new Date().toUTCString(),
 				updatedOn: new Date().toUTCString(),
 			});
@@ -23,22 +40,21 @@ const saveUser = async (request, response) => {
 				password: user.password,
 			};
 
-			const isSuccess = sendUserRegisteredEmail(userDetails);
+			//onst isSuccess = sendUserRegisteredEmail(userDetails);
 
-			if (isSuccess) {
-				const salt = await bcrypt.genSalt(10);
-				user.password = await bcrypt.hash(user.password, salt);
-				await user.save();
+			const salt = await bcrypt.genSalt(10);
+			user.password = await bcrypt.hash(user.password, salt);
+			await user.save();
 
-				response.status(200).send("User has been save Successfully");
-			} else {
-				response.status(400).json("Error,please contact Admin");
-			}
+			response.json({ isSuccess: true, message: "User has been save Successfully" });
 		} else {
 			const isUserAvailable = await User.findById(id);
 
 			if (!isUserAvailable) {
-				return res.status(404).json("Cannot Find User");
+				response.json({
+					isSuccess: false,
+					message: "Cannot Find User",
+				});
 			}
 
 			const userObj = await User.findByIdAndUpdate(id, {
@@ -49,10 +65,13 @@ const saveUser = async (request, response) => {
 				updatedOn: new Date().toUTCString(),
 			});
 
-			response.status(200).json("User has been  Update SuccessFully");
+			response.json({
+				isSuccess: true,
+				message: "User has been  Update SuccessFully",
+			});
 		}
 	} catch (error) {
-		response.status(400).json(error.message);
+		response.json(error);
 	}
 };
 
