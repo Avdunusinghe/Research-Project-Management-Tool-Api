@@ -6,10 +6,7 @@ const submissionSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	fileName: {
-		type: String,
-		required: true,
-	},
+
 	submissionType: {
 		type: String,
 		required: true,
