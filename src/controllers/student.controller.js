@@ -38,8 +38,8 @@ const saveStudent = async (request, response) => {
 			// const isSuccess = sendStudentRegisteredEmail(studentDetails);
 			const isSuccess = true;
 			if (isSuccess) {
-				// const salt = await bcrypt.genSalt(10);
-				//student.password = await bcrypt.hash(student.password, salt);
+				 const salt = await bcrypt.genSalt(10);
+				student.password = await bcrypt.hash(student.password, salt);
 				await student.save();
 
 				response.status(200).send("Student has been save Successfully");
