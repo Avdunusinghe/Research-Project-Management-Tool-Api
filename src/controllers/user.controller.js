@@ -5,8 +5,19 @@ const sendUserRegisteredEmail = require("../utils/email.helper");
 
 const saveUser = async (request, response) => {
 	try {
-		let { id, fullName, email, mobileNumber, password, isAdmin, isPanelMember, isSupervisor, isLecure, isSudent } =
-			request.body;
+		let {
+			id,
+			fullName,
+			email,
+			mobileNumber,
+			password,
+			department,
+			isAdmin,
+			isPanelMember,
+			isSupervisor,
+			isLecure,
+			isSudent,
+		} = request.body;
 
 		if (id == null) {
 			let user = new User({
@@ -14,6 +25,7 @@ const saveUser = async (request, response) => {
 				email,
 				mobileNumber,
 				password,
+				department,
 				isAdmin,
 				isPanelMember,
 				isSupervisor,
