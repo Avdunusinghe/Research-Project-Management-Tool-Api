@@ -86,8 +86,35 @@ const getTopicById = async (request, response) => {
 	}
 };
 
+/*
+Topic evaluation
+*/
+
+const evaluateTopics = async (request, response) => {
+  try {
+		let { id, topicName, subject, groupleaderId, groupleadername, groupId, description, isAccept } = request.body;
+
+    const isTopicGroupAvailable = await Topic.findById(id);
+
+			if (!isTopicGroupAvailable) {
+				return res.status(404).json("Cannot Find the Topic");
+			}
+
+		const topicObj = await Topic.findByIdAndUpdate(id, {
+      isAccept,
+      description,
+    });
+
+    const topics = await Topic.find().select();
+    response.json(topics);
+  } catch {
+  response.status(400).json(error.message);;
+  }
+};
+
 module.exports = {
 	registerTopic,
 	getAllTopics,
 	getTopicById,
+  evaluateTopics,
 };

@@ -45,17 +45,12 @@ app.get("/", (request, response) => {
 });
 app.use("/api/auth", require("./src/routes/auth.route"));
 app.use("/api/user", require("./src/routes/user.route"));
-<<<<<<< HEAD
-app.use("/api/panelMember", require("./src/routes/panelMember.route"));
-
-=======
 app.use("/api/document", require("./src/routes/document.route"));
 app.use("/api/student", require("./src/routes/student.route"));
 app.use("/api/studentGroup", require("./src/routes/studentGroup.route"));
 app.use("/api/topic", require("./src/routes/topic.route"));
 app.use("/api/document", require("./src/routes/documentUpload.route"));
 app.use("/api/requests", require("./src/routes/requests.route"));
->>>>>>> 3c99ef48004db8edc6aeb0b1869dedf8c3109e06
 
 const port = process.env.PORT || 4000;
 

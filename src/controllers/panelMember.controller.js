@@ -3,10 +3,21 @@ const bcrypt = require("bcrypt");
 
 const sendUserRegisteredEmail = require("../utils/email.helper");
 
+/*
+Register Panel Member
+*/
+
 const savePanelMember = async (request, response) => {
   try {
-    let { id, firstName, lastName, email, mobileNumber, password } =
-      request.body;
+    let { 
+      id, 
+      firstName, 
+      lastName, 
+      email, 
+      mobileNumber, 
+      password,
+      isPanelMember,
+    } = request.body;
 
     if (id == null) {
       let panelMember = new User({
@@ -15,6 +26,7 @@ const savePanelMember = async (request, response) => {
         email,
         mobileNumber,
         password,
+        isPanelMember: true,
         createOn: new Date().toUTCString(),
         updatedOn: new Date().toUTCString(),
       });
@@ -39,7 +51,7 @@ const savePanelMember = async (request, response) => {
     } else {
       const ispanelMemberAvailable = await User.findById(id);
 
-      if (!isUserAvailable) {
+      if (!ispanelMemberAvailable) {
         return res.status(404).json("Cannot Find PanelMember");
       }
 
@@ -57,6 +69,10 @@ const savePanelMember = async (request, response) => {
     response.status(400).json(error.message);
   }
 };
+
+/*
+Get All Panel Member List
+*/
 
 const getAllPanelMemberDetails = async (request, response) => {
   const limit = 0;
@@ -91,6 +107,10 @@ const getAllPanelMemberDetails = async (request, response) => {
   }
 };
 
+/*
+Delete Panel Member
+*/
+
 const deletePanelMember = async (request, response) => {
   try {
     const panelMemberId = request.params.id;
@@ -105,9 +125,14 @@ const deletePanelMember = async (request, response) => {
   }
 };
 
+/*
+Get Panel Member By Id
+*/
+
 const getPanelMemberById = async (request, response) => {
   try {
     const panelMemberId = request.params.id;
+    if (!mongoose.Types.ObjectId.isValid(panelMemberId)) return false;
     if (panelMemberId != null) {
       const panelMember = await User.findById(panelMemberId).select("-password");
       response.json(panelMember);
@@ -119,6 +144,10 @@ const getPanelMemberById = async (request, response) => {
   }
 };
 
+/*
+Get All Panel Members
+*/
+
 const getAllPanelMembers = async (request, response) => {
   try {
     const panelMemberDetails = await User.find().select("-password");
@@ -126,10 +155,6 @@ const getAllPanelMembers = async (request, response) => {
   } catch (error) {
     response.status(400).json(error.message);
   }
-};
-
-const evaluateTopics = async () => {
-
 };
 
 const evaluateStudentPresentation = async () => {
@@ -142,6 +167,5 @@ module.exports = {
   deletePanelMember,
   getPanelMemberById,
   getAllPanelMembers,
-  evaluateTopics,
   evaluateStudentPresentation,
 };
