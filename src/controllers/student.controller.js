@@ -8,24 +8,27 @@ const sendStudentRegisteredEmail = require("../utils/email.helper");
 Register Student
 */
 const saveStudent = async (request, response) => {
-	try {
-		let { id, firstname, lastname, email, mobilenumber, password } = request.body;
+  try {
+    let {
+      id,
+      fullName,
+      email,
+      mobileNumber,
+      password,
+      department,
+    } = request.body;
 
-		if (id == null) {
-			let student = new User({
-				firstname,
-				lastname,
-				email,
-				mobilenumber,
-				password,
-				//role: (role = 1
-				// ? UserRole.admin
-				//: 2
-				//? UserRole.student
-				//: UserRole.lecturer),
-				createOn: new Date().toUTCString(),
-				updatedOn: new Date().toUTCString(),
-			});
+    if (id == null) {
+      let student = new User({
+        fullName,
+        email,
+        mobileNumber,
+        password,
+        department,
+        isStudent: true,
+        createOn: new Date().toUTCString(),
+        updatedOn: new Date().toUTCString(),
+      });
 
 			const studentDetails = {
 				email: student.email,
@@ -35,8 +38,8 @@ const saveStudent = async (request, response) => {
 			// const isSuccess = sendStudentRegisteredEmail(studentDetails);
 			const isSuccess = true;
 			if (isSuccess) {
-				// const salt = await bcrypt.genSalt(10);
-				//student.password = await bcrypt.hash(student.password, salt);
+				 const salt = await bcrypt.genSalt(10);
+				student.password = await bcrypt.hash(student.password, salt);
 				await student.save();
 
 				response.status(200).send("Student has been save Successfully");
@@ -51,10 +54,12 @@ const saveStudent = async (request, response) => {
 			}
 
 			const studentObj = await User.findByIdAndUpdate(id, {
-				firstname,
-				lastname,
-				email,
-				mobilenumber,
+        fullName,
+        email,
+        mobileNumber,
+        password,
+        department,
+        isStudent: true,
 				updatedOn: new Date().toUTCString(),
 			});
 

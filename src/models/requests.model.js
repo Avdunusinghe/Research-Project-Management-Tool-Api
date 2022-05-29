@@ -2,19 +2,19 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const requestSchema = new Schema({
-	groupleaderName: {
+	firstmemberName: {
 		type: String,
 		required: true,
 	},
-	groupleaderId: {
+firstmemberEmail: {
 		type: String,
 		required: true,
 	},
-	groupleaderEmail: {
+firstmemberRegNumber: {
 		type: String,
 		required: true,
 	},
-	groupId: {
+	groupName: {
 		type: String,
 		required: true,
 	},
@@ -26,6 +26,7 @@ const requestSchema = new Schema({
 		type: Boolean,
 		default: false,
 	},
+	
 
 	createOn: {
 		type: Date,

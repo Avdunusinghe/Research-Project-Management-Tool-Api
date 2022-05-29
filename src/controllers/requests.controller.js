@@ -9,32 +9,22 @@ const requestSupervisor = async (request, response) => {
 	try {
 		let {
 			id,
-			groupleaderName,
-			groupleaderId,
-			groupleaderEmail,
-			groupId,
-			mobileNumber,
-			// role: (role = 1
-			// ? UserRole.admin
-			//: 2
-			//? UserRole.student
-			//: UserRole.lecturer),
+			groupName,
+      		subjectName,
+      		firstmemberName,
+      		firstmemberEmail,
+      		firstmemberRegNumber,
 			description,
 			isAccept,
 		} = request.body;
 
 		if (id == null) {
 			let groupLeader = new Request({
-				groupleaderName,
-				groupleaderId,
-				groupleaderEmail,
-				groupId,
-				mobileNumber,
-				// role: (role = 1
-				// ? UserRole.admin
-				//: 2
-				//? UserRole.student
-				//: UserRole.lecturer),
+				groupName,
+      			subjectName,
+      			firstmemberName,
+      			firstmemberEmail,
+      			firstmemberRegNumber,
 				description,
 				isAccept,
 				createOn: new Date().toUTCString(),
