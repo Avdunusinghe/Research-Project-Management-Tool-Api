@@ -5,7 +5,7 @@ const { saveEvaluation, getAllEvaluationItems, getEvaluationItemById } = require
 
 //@route POST api/Evaluation/save
 //@description save Evaluation
-router.post("/", saveEvaluation);
+router.post("/save", saveEvaluation);
 
 //@route POST api/evaluation/all
 //@description get all ecaluation items

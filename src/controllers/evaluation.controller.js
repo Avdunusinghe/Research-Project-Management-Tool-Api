@@ -1,5 +1,6 @@
 const Evaluation = require("../models/evaluation.model");
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 
 const saveEvaluation  = async (request, response) => {
     try {
@@ -10,8 +11,7 @@ const saveEvaluation  = async (request, response) => {
             evaluatorname, 
             evaluatoremail, 
             mark,
-            feedback, 
-            isAccept } = request.body;
+            feedback } = request.body;
         
         if (id == null) {
             let evaluation = new Evaluation({
@@ -21,7 +21,6 @@ const saveEvaluation  = async (request, response) => {
                 evaluatoremail,
                 mark,
                 feedback,
-                isAccept,
                 createOn: new Date().toUTCString(),
                 updatedOn: new Date().toUTCString(),
             });
@@ -48,7 +47,6 @@ const saveEvaluation  = async (request, response) => {
                 evaluatoremail,
                 mark,
                 feedback,
-                isAccept,
 				updatedOn: new Date().toUTCString(),
 			});
 
@@ -81,11 +79,8 @@ const getEvaluationItemById = async (request, response) => {
 		const evaluationId = request.params.id;
 		if (!mongoose.Types.ObjectId.isValid(evaluationId)) return false;
 		if (evaluationId != null) {
-			if (Evaluation.isAccept == false) {
-				const evaluation = await Evaluation.findById(evaluationId).select();
-				Evaluation.updateOne((set = isAccept == true));
-				response.json(evaluation);
-			}
+			const evaluation = await evaluation.findById(evaluationId).select();
+			response.json(evaluation);
 		} else {
 			return response.status(200).json("Cannot Find Evaluation Item,Please Try Again");
 		}
