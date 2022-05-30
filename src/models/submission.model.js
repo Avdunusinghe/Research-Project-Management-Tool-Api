@@ -27,6 +27,11 @@ const submissionSchema = new Schema({
 		type: String,
 		required: false,
 	},
+	isHide: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
 });
 
 module.exports = Submission = mongoose.model("Submission", submissionSchema);
