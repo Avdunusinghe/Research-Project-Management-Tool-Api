@@ -19,9 +19,33 @@ const saveSubmisstion = async (request, response) => {
 			await submission.save();
 			response.json({ isSuccess: true, message: "Submisstion has been save Successfully" });
 		} else {
+			const isSubmission = await Submisstion.findById(id);
+
+			if (!isSubmission) {
+				response.json({
+					isSuccess: false,
+					message: "Cannot Find Submisstion",
+				});
+			}
+
+			const obj = await Submisstion.findByIdAndUpdate(id, {
+				submisstionName,
+				submissionType,
+				fromDate,
+				toDate,
+				submisstionfile,
+			});
+
+			response.json({
+				isSuccess: true,
+				message: "Submisstion has been  Update SuccessFully",
+			});
 		}
 	} catch (error) {
-		console.error(error);
+		response.json({
+			isSuccess: false,
+			message: "Error has been orccured please try again",
+		});
 	}
 };
 
@@ -55,15 +79,22 @@ Get Submission By Id
 const getSubmissionById = async (request, response) => {
 	try {
 		const submissionId = request.params.id;
-		if (!mongoose.Types.ObjectId.isValid(submissionId)) return false;
-		if (studentId != null) {
-			const submission = await User.findById(submissionId).select("-password");
+
+		if (submissionId != null) {
+			const submission = await Submisstion.findById(submissionId);
+
 			response.json(submission);
 		} else {
-			return response.status(200).json("Cannot Find Submissoin,Please Try Again");
+			return response.json({
+				isSuccess: false,
+				message: "Cannot Find Submisstion",
+			});
 		}
 	} catch (error) {
-		response.status(400).json(error.message);
+		return response.json({
+			isSuccess: false,
+			message: "Error has been occured Please try again",
+		});
 	}
 };
 
