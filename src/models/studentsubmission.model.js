@@ -5,7 +5,7 @@ const studentsubmissionSchema = new Schema({
     
 	groupleaderRegNo: {
 		type: String,
-		required: false,
+		required: true,
 	},
 
 	groupleaderEmail: {
