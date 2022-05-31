@@ -1,24 +1,27 @@
 const StudentSubmisstion = require("../models/studentsubmission.model");
+const User = require("../models/user.model");
 
 const saveStudentSubmisstion = async (request, response) => {
 	try {
 		let { id, 
-			groupleaderRegNo, 
-			groupleaderEmail, 
-			groupName, 
+			studentAnswerId,
 			studentAnswerfile,
 			marks,
-			feedback 
+			feedback ,
+			currentUserId,
+			currentUserEmail,
 		} = request.body;
+
+		const loggedInUser = User.findById(currentUserId).select("-password");
 
 		if (id == null) {
 			let studentsubmission = new StudentSubmisstion({
-				groupleaderRegNo, 
-                groupleaderEmail, 
-                groupName,
+				studentAnswerId,
                  studentAnswerfile,
                  marks,
-                 feedback
+                 feedback,
+				 currentUserId:loggedInUser._id,
+				 currentUserEmail:loggedInUser.email
 			});
 
 			await studentsubmission.save();

@@ -3,22 +3,15 @@ const { Schema } = mongoose;
 
 const studentsubmissionSchema = new Schema({
     
-	groupleaderRegNo: {
-		type: String,
+studentAnswerId:{
+		type: Schema.Types.ObjectId,
 		required: true,
-	},
-
-	groupleaderEmail: {
-		type: String,
-		required: true,
-	},
-	groupName: {
-		type: Date,
-		required: true,
-	},
+		ref:"Submission",
+},
     studentAnswerfile: {
 		type: String,
 		required: true,
+
 	},
 	marks: {
 		type: Date,
