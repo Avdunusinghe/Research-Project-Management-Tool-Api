@@ -2,16 +2,16 @@ const Submisstion = require("../models/submission.model");
 
 const saveSubmisstion = async (request, response) => {
 	try {
-		let { id, submisstionName, submissionType, fromDate, toDate, submisstionfile, studentAnswerfile, isHide } =
+		let { id, submissionName, submissionType, fromDate, toDate, submissionfile, studentAnswerfile, isHide } =
 			request.body;
 
 		if (id == null) {
 			let submission = new Submisstion({
-				submisstionName,
+				submissionName,
 				submissionType,
 				fromDate,
 				toDate,
-				submisstionfile,
+				submissionfile,
 				studentAnswerfile,
 				isHide,
 			});
@@ -29,11 +29,11 @@ const saveSubmisstion = async (request, response) => {
 			}
 
 			const obj = await Submisstion.findByIdAndUpdate(id, {
-				submisstionName,
+				submissionName,
 				submissionType,
 				fromDate,
 				toDate,
-				submisstionfile,
+				submissionfile,
 			});
 
 			response.json({
@@ -149,6 +149,7 @@ const chengeVisiblitySubmisstion = async (reqeust, response) => {
 					isHide: value,
 				},
 			});
+
 			if (isHide) {
 				response.json({
 					isSuccess: true,

@@ -24,6 +24,8 @@ const login = async (request, response) => {
 			const token = await user.genarateJwtToken();
 			currentUserModel = {
 				token: token,
+				userId: user._id,
+				email: user.email,
 				userName: user.firstName,
 				isAdmin: user.isAdmin,
 				isPanelMember: user.isPanelMember,

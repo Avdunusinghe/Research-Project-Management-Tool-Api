@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const submissionSchema = new Schema({
-	submisstionName: {
+	submissionName: {
 		type: String,
 		required: true,
 	},
@@ -19,7 +19,7 @@ const submissionSchema = new Schema({
 		type: Date,
 		required: true,
 	},
-	submisstionfile: {
+	submissionfile: {
 		type: String,
 		required: true,
 	},
