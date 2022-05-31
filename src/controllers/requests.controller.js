@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Request = require("../models/requests.model");
+const User = require("../models/user.model");
 
 /*
  Student Request a supervisor
@@ -7,24 +8,16 @@ const Request = require("../models/requests.model");
 
 const requestSupervisor = async (request, response) => {
 	try {
-		let {
-			id,
-			groupName,
-      		subjectName,
-      		firstmemberName,
-      		firstmemberEmail,
-      		firstmemberRegNumber,
-			description,
-			isAccept,
-		} = request.body;
+		let { id, groupName, subjectName, firstmemberName, firstmemberEmail, firstmemberRegNumber, description, isAccept } =
+			request.body;
 
 		if (id == null) {
 			let groupLeader = new Request({
 				groupName,
-      			subjectName,
-      			firstmemberName,
-      			firstmemberEmail,
-      			firstmemberRegNumber,
+				subjectName,
+				firstmemberName,
+				firstmemberEmail,
+				firstmemberRegNumber,
 				description,
 				isAccept,
 				createOn: new Date().toUTCString(),
@@ -50,7 +43,7 @@ const requestSupervisor = async (request, response) => {
   */
 const getAllSupervisorRequests = async (request, response) => {
 	try {
-		const requests = await Request.find().select();
+		const requests = await Request.find({ isAccept: false });
 
 		response.json(requests);
 	} catch (error) {
@@ -58,7 +51,27 @@ const getAllSupervisorRequests = async (request, response) => {
 	}
 };
 
+/*
+  Get All PanelMember Data
+  */
+const getPanelMembersMasterData = async (request, response) => {
+	try {
+		const panelMembers = await User.aggregate([{ $match: { isStuent: false } && { isAdmin: false } }]);
+
+		const panelMembermasterData = [];
+
+		for (let item in panelMembers) {
+		}
+
+		response.json(panelMembers);
+	} catch (error) {
+		response.json(error);
+		console.log(error);
+	}
+};
+
 module.exports = {
 	requestSupervisor,
 	getAllSupervisorRequests,
+	getPanelMembersMasterData,
 };

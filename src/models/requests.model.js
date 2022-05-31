@@ -6,11 +6,11 @@ const requestSchema = new Schema({
 		type: String,
 		required: true,
 	},
-firstmemberEmail: {
+	firstmemberEmail: {
 		type: String,
 		required: true,
 	},
-firstmemberRegNumber: {
+	firstmemberRegNumber: {
 		type: String,
 		required: true,
 	},
@@ -26,7 +26,18 @@ firstmemberRegNumber: {
 		type: Boolean,
 		default: false,
 	},
-	
+
+	supervisorId: {
+		type: Schema.Types.ObjectId,
+		required: false,
+		ref: "User",
+	},
+
+	coSupervisorId: {
+		type: Schema.Types.ObjectId,
+		required: false,
+		ref: "User",
+	},
 
 	createOn: {
 		type: Date,
