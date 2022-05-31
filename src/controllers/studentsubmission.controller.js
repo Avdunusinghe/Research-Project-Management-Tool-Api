@@ -1,27 +1,27 @@
 const StudentSubmisstion = require("../models/studentsubmission.model");
 const User = require("../models/user.model");
 
-const saveStudentSubmisstion = async (request, response) => {
+const saveStudentSubmission = async (request, response) => {
 	try {
 		let { id, 
-			studentAnswerId,
+			submissionId,
 			studentAnswerfile,
 			marks,
 			feedback ,
-			currentUserId,
-			currentUserEmail,
+			submittedById,
+	
 		} = request.body;
 
-		const loggedInUser = User.findById(currentUserId).select("-password");
+		const loggedInUser = User.findById(submittedById).select("-password");
 
 		if (id == null) {
 			let studentsubmission = new StudentSubmisstion({
-				studentAnswerId,
+				submissionId,
                  studentAnswerfile,
                  marks,
                  feedback,
-				 currentUserId:loggedInUser._id,
-				 currentUserEmail:loggedInUser.email
+				 submittedById:loggedInUser._id,
+				 
 			});
 
 			await studentsubmission.save();
@@ -49,7 +49,7 @@ const getAllStudentSubmissions = async (request, response) => {
 
 
 module.exports = {
-	saveStudentSubmisstion,
+	saveStudentSubmission,
 	getAllStudentSubmissions,
 	
 };

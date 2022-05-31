@@ -3,15 +3,21 @@ const { Schema } = mongoose;
 
 const studentsubmissionSchema = new Schema({
     
-studentAnswerId:{
+submissionId:{
 		type: Schema.Types.ObjectId,
-		required: true,
+		required: false,
 		ref:"Submission",
 },
     studentAnswerfile: {
 		type: String,
 		required: true,
 
+	},
+
+	submittedById:{
+		type: Schema.Types.ObjectId,
+		required: false,
+		ref:"User",
 	},
 	marks: {
 		type: Date,

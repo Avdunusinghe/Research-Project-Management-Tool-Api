@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const {
-	saveStudentSubmisstion,
+	saveStudentSubmission,
 
 } = require("../controllers/studentsubmission.controller");
 
-//@route POST api/student/
-//@description Save Student
-router.post("/", saveStudentSubmisstion);
+//@route POST api/student/studentsubmission
+//@description Save Student submission
+router.post("/", saveStudentSubmission);
 
 module.exports = router;
