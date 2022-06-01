@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Request = require("../models/requests.model");
+const User = require("../models/user.model");
 
 /*
  Student Request a supervisor
@@ -9,32 +10,24 @@ const requestSupervisor = async (request, response) => {
 	try {
 		let {
 			id,
-			groupleaderName,
-			groupleaderId,
-			groupleaderEmail,
-			groupId,
-			mobileNumber,
-			// role: (role = 1
-			// ? UserRole.admin
-			//: 2
-			//? UserRole.student
-			//: UserRole.lecturer),
+			groupName,
+			subjectName,
+			firstmemberName,
+			firstmemberEmail,
+			firstmemberRegNumber,
+			researchArea,
 			description,
 			isAccept,
 		} = request.body;
 
 		if (id == null) {
 			let groupLeader = new Request({
-				groupleaderName,
-				groupleaderId,
-				groupleaderEmail,
-				groupId,
-				mobileNumber,
-				// role: (role = 1
-				// ? UserRole.admin
-				//: 2
-				//? UserRole.student
-				//: UserRole.lecturer),
+				groupName,
+				subjectName,
+				firstmemberName,
+				firstmemberEmail,
+				firstmemberRegNumber,
+				researchArea,
 				description,
 				isAccept,
 				createOn: new Date().toUTCString(),
@@ -60,7 +53,7 @@ const requestSupervisor = async (request, response) => {
   */
 const getAllSupervisorRequests = async (request, response) => {
 	try {
-		const requests = await Request.find().select();
+		const requests = await Request.find({ isAccept: false });
 
 		response.json(requests);
 	} catch (error) {
@@ -68,7 +61,58 @@ const getAllSupervisorRequests = async (request, response) => {
 	}
 };
 
+/*
+  Get All PanelMember Data
+  */
+const getPanelMembersMasterData = async (request, response) => {
+	try {
+		const panelMembers = await User.aggregate([{ $match: { isPanelMember: true } }]);
+
+		response.json(panelMembers);
+	} catch (error) {
+		response.json(error);
+		console.log(error);
+	}
+};
+
+/*
+  AllocatePanelMember
+  */
+
+const allocatePanelMember = async (request, response) => {
+	try {
+		let = { id, isAccept, panelMember } = request.body;
+
+		const request = Request.findById(id);
+
+		if (!request) {
+			response.json({
+				isSuccess: false,
+				message: "Request Cannot Found",
+			});
+		}
+
+		const groupLeader = User.findById(request.firstmemberRegNumber);
+
+		const obj = await Request.findByIdAndUpdate(id, {
+			isAccept,
+			panelMember,
+		});
+
+		response.json({
+			isSuccess: true,
+			message: "Panel Member Allocated,",
+		});
+	} catch (error) {
+		response.json({
+			isSuccess: false,
+			message: "Error has been orccured.please try again",
+		});
+	}
+};
 module.exports = {
 	requestSupervisor,
 	getAllSupervisorRequests,
+	getPanelMembersMasterData,
+	allocatePanelMember,
 };

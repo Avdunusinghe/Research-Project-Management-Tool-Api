@@ -3,13 +3,41 @@ const mongoose = require("mongoose");
 
 const saveStudentGroup = async (request, response) => {
 	try {
-		let { id, groupName, subjectName, memberDetails } = request.body;
+		let { id,
+      groupName,
+      subjectName,
+	  firstmemberName,
+	  firstmemberEmail,
+	  firstmemberRegNumber,
+	  secondmemberName,
+	  secondmemberEmail,
+	  secondmemberRegNumber,
+	  thirdmemberName,
+	  thirdmemberEmail,
+	  thirdmemberRegNumber,
+	  fourthmemberName,
+	  fourthmemberEmail,
+	  fourthmemberRegNumber,
+	  need,
+       } = request.body;
 
 		if (id == null) {
 			let studentgroup = new StudentGroup({
 				groupName,
 				subjectName,
-				memberDetails,
+				firstmemberName,
+				firstmemberEmail,
+				firstmemberRegNumber,
+				secondmemberName,
+				secondmemberEmail,
+				secondmemberRegNumber,
+				thirdmemberName,
+				thirdmemberEmail,
+				thirdmemberRegNumber,
+				fourthmemberName,
+				fourthmemberEmail,
+				fourthmemberRegNumber,
+				need,
 				createOn: new Date().toUTCString(),
 				updatedOn: new Date().toUTCString(),
 			});
@@ -30,10 +58,22 @@ const saveStudentGroup = async (request, response) => {
 			}
 
 			const studentGroupObj = await StudentGroup.findByIdAndUpdate(id, {
-				groupName,
+        groupName,
 				subjectName,
-				subjectId,
-				memberDetails,
+        firstmemberName,
+        firstmemberEmail,
+        firstmemberRegNumber,
+        secondmemberName,
+        secondmemberEmail,
+        secondmemberRegNumber,
+        thirdmemberName,
+        thirdmemberEmail,
+        thirdmemberRegNumber,
+        fourthmemberName,
+        fourthmemberEmail,
+        fourthmemberRegNumber,
+		need,
+		
 				updatedOn: new Date().toUTCString(),
 			});
 
