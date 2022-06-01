@@ -8,8 +8,17 @@ const User = require("../models/user.model");
 
 const requestSupervisor = async (request, response) => {
 	try {
-		let { id, groupName, subjectName, firstmemberName, firstmemberEmail, firstmemberRegNumber, description, isAccept } =
-			request.body;
+		let {
+			id,
+			groupName,
+			subjectName,
+			firstmemberName,
+			firstmemberEmail,
+			firstmemberRegNumber,
+			researchArea,
+			description,
+			isAccept,
+		} = request.body;
 
 		if (id == null) {
 			let groupLeader = new Request({
@@ -18,6 +27,7 @@ const requestSupervisor = async (request, response) => {
 				firstmemberName,
 				firstmemberEmail,
 				firstmemberRegNumber,
+				researchArea,
 				description,
 				isAccept,
 				createOn: new Date().toUTCString(),

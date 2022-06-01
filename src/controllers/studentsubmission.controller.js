@@ -12,7 +12,7 @@ const saveStudentSubmission = async (request, response) => {
 	
 		} = request.body;
 
-		const loggedInUser = User.findById(submittedById).select("-password");
+		//const loggedInUser = User.findById(submittedById).select("-password");
 
 		if (id == null) {
 			let studentsubmission = new StudentSubmisstion({
@@ -20,7 +20,7 @@ const saveStudentSubmission = async (request, response) => {
                  studentAnswerfile,
                  marks,
                  feedback,
-				 submittedById:loggedInUser._id,
+				 submittedById,
 				 
 			});
 
