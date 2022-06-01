@@ -15,6 +15,8 @@ const {
 //@description save submisstion
 router.post("/", saveSubmisstion);
 
+//@route POST api/submisstion/
+//@description Change visibility submisstion
 router.put("/", chengeVisiblitySubmisstion);
 
 //@route GET api/submisstion/all
