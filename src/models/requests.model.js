@@ -22,6 +22,10 @@ firstmemberRegNumber: {
 		type: String,
 		required: true,
 	},
+	researchArea: {
+		type: String,
+		required: false,
+	},
 	isAccept: {
 		type: Boolean,
 		default: false,

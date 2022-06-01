@@ -14,6 +14,7 @@ const requestSupervisor = async (request, response) => {
       		firstmemberName,
       		firstmemberEmail,
       		firstmemberRegNumber,
+			  researchArea,
 			description,
 			isAccept,
 		} = request.body;
@@ -25,6 +26,7 @@ const requestSupervisor = async (request, response) => {
       			firstmemberName,
       			firstmemberEmail,
       			firstmemberRegNumber,
+				  researchArea,
 				description,
 				isAccept,
 				createOn: new Date().toUTCString(),
