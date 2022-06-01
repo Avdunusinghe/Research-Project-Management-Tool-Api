@@ -2,25 +2,28 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const studentsubmissionSchema = new Schema({
-    
-submissionId:{
+	submissionId: {
 		type: Schema.Types.ObjectId,
 		required: false,
-		ref:"Submission",
-},
-    studentAnswerfile: {
+		ref: "Submission",
+	},
+	studentAnswerfile: {
 		type: String,
 		required: true,
-
 	},
 
-	submittedById:{
+	submittedById: {
 		type: Schema.Types.ObjectId,
 		required: false,
-		ref:"User",
+		ref: "User",
+	},
+
+	submitedOn: {
+		type: Date,
+		required: true,
 	},
 	marks: {
-		type: Date,
+		type: String,
 		required: false,
 	},
 	feedback: {

@@ -1,4 +1,5 @@
 const Submisstion = require("../models/submission.model");
+const StudentSubmisstion = require("../models/studentsubmission.model");
 
 const saveSubmisstion = async (request, response) => {
 	try {
@@ -169,6 +170,19 @@ const chengeVisiblitySubmisstion = async (reqeust, response) => {
 		});
 	}
 };
+
+const getSubmissionsStudentAnswers = async (reqeust, response) => {
+	try {
+		const submissionId = reqeust.params.id;
+
+		const studentAnswers = StudentSubmisstion.find({ submissionId: submissionId }).populate(
+			"User",
+			"fullName, studentId "
+		);
+
+		response.json(studentAnswers);
+	} catch (error) {}
+};
 module.exports = {
 	saveSubmisstion,
 	getAllUnHideSubmissions,
@@ -176,4 +190,5 @@ module.exports = {
 	getSubmissionById,
 	deleteSubmisstion,
 	chengeVisiblitySubmisstion,
+	getSubmissionsStudentAnswers,
 };
