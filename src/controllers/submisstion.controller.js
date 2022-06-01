@@ -175,13 +175,14 @@ const getSubmissionsStudentAnswers = async (reqeust, response) => {
 	try {
 		const submissionId = reqeust.params.id;
 
-		const studentAnswers = StudentSubmisstion.find({ submissionId: submissionId }).populate(
-			"User",
-			"fullName, studentId "
-		);
+		const studentAnswers = await StudentSubmisstion.find({ submissionId: submissionId })
+			.populate("submittedById", ["fullName", "studentId"])
+			.populate("submissionId", ["submisstionName"]);
 
 		response.json(studentAnswers);
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+	}
 };
 module.exports = {
 	saveSubmisstion,
