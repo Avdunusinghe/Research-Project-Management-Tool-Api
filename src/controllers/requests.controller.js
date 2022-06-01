@@ -56,12 +56,7 @@ const getAllSupervisorRequests = async (request, response) => {
   */
 const getPanelMembersMasterData = async (request, response) => {
 	try {
-		const panelMembers = await User.aggregate([{ $match: { isStuent: false } && { isAdmin: false } }]);
-
-		const panelMembermasterData = [];
-
-		for (let item in panelMembers) {
-		}
+		const panelMembers = await User.aggregate([{ $match: { isPanelMember: true } }]);
 
 		response.json(panelMembers);
 	} catch (error) {
@@ -70,8 +65,44 @@ const getPanelMembersMasterData = async (request, response) => {
 	}
 };
 
+/*
+  AllocatePanelMember
+  */
+
+const allocatePanelMember = async (request, response) => {
+	try {
+		let = { id, isAccept, panelMember } = request.body;
+
+		const request = Request.findById(id);
+
+		if (!request) {
+			response.json({
+				isSuccess: false,
+				message: "Request Cannot Found",
+			});
+		}
+
+		const groupLeader = User.findById(request.firstmemberRegNumber);
+
+		const obj = await Request.findByIdAndUpdate(id, {
+			isAccept,
+			panelMember,
+		});
+
+		response.json({
+			isSuccess: true,
+			message: "Panel Member Allocated,",
+		});
+	} catch (error) {
+		response.json({
+			isSuccess: false,
+			message: "Error has been orccured.please try again",
+		});
+	}
+};
 module.exports = {
 	requestSupervisor,
 	getAllSupervisorRequests,
 	getPanelMembersMasterData,
+	allocatePanelMember,
 };
