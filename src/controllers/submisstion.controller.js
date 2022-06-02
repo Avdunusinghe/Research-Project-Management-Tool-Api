@@ -53,6 +53,7 @@ const saveSubmisstion = async (request, response) => {
 			});
 		}
 	} catch (error) {
+		console.log(error);
 		response.json({
 			isSuccess: false,
 			message: "Error has been orccured please try again",
