@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { saveEvaluation, getAllEvaluationItems, getEvaluationItemById } = require("../controllers/evaluation.controller");
+const { 
+    saveEvaluation, 
+    getAllEvaluationItems, 
+    getEvaluationItemById,
+    deleteEvaluationItem,
+} = require("../controllers/evaluation.controller");
 
 //@route POST api/Evaluation/save
 //@description save Evaluation
@@ -13,6 +18,10 @@ router.get("/all", getAllEvaluationItems);
 
 //@route POST api/evaluation/id
 //@description get all evaluation items by id
-router.get("/id", getEvaluationItemById);
+router.get("/:id", getEvaluationItemById);
+
+//@route Delete api/evaluation/id
+//@desc Delete evaluation
+router.delete("/:id", deleteEvaluationItem);
 
 module.exports = router;

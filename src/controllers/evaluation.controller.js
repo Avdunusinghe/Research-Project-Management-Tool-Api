@@ -71,15 +71,14 @@ const getAllEvaluationItems = async (request, response) => {
 };
 
 /*
-Get Topic By Id
+Get valuation By Id
 */
 
 const getEvaluationItemById = async (request, response) => {
 	try {
 		const evaluationId = request.params.id;
-		if (!mongoose.Types.ObjectId.isValid(evaluationId)) return false;
 		if (evaluationId != null) {
-			const evaluation = await evaluation.findById(evaluationId).select();
+			const evaluation = await Evaluation.findById(evaluationId).select();
 			response.json(evaluation);
 		} else {
 			return response.status(200).json("Cannot Find Evaluation Item,Please Try Again");
@@ -89,8 +88,31 @@ const getEvaluationItemById = async (request, response) => {
 	}
 };
 
+/*
+Delete Evaluation Item
+*/
+
+const deleteEvaluationItem = async (request, response) => {
+	try {
+		const evaluationId = request.params.id;
+
+		let query = await Evaluation.findById(evaluationId);
+
+		if (!query) {
+			return response.status(200).json("Cannot Find Evaluation Item,Please Try Again");
+		}
+
+		query = await Evaluation.findByIdAndDelete(evaluationId);
+
+		response.status(200).json("Evaluation Item has been delete successfully");
+	} catch (err) {
+		response.status(400).json(err.message);
+	}
+};
+
 module.exports = {
 	saveEvaluation,
 	getAllEvaluationItems,
 	getEvaluationItemById,
+	deleteEvaluationItem,
 };

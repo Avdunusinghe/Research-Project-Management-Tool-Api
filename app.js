@@ -52,6 +52,7 @@ app.use("/api/topic", require("./src/routes/topic.route"));
 app.use("/api/document", require("./src/routes/documentUpload.route"));
 app.use("/api/requests", require("./src/routes/requests.route"));
 app.use("/api/submisstion", require("./src/routes/submisstion.route"));
+app.use("/api/evaluation", require("./src/routes/evaluation.route"));
 
 const port = process.env.PORT || 4000;
 

@@ -26,11 +26,6 @@ const evaluationSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	isAccept: {
-		type: Boolean,
-		default: false,
-	},
-
 	createOn: {
 		type: Date,
 		required: false,
