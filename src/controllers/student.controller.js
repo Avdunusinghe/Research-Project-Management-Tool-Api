@@ -14,6 +14,7 @@ const saveStudent = async (request, response) => {
       fullName,
       email,
       mobileNumber,
+	  studentId,
       password,
       department,
     } = request.body;
@@ -23,6 +24,7 @@ const saveStudent = async (request, response) => {
         fullName,
         email,
         mobileNumber,
+		studentId,
         password,
         department,
         isStudent: true,
@@ -57,6 +59,7 @@ const saveStudent = async (request, response) => {
         fullName,
         email,
         mobileNumber,
+		studentId,
         password,
         department,
         isStudent: true,
