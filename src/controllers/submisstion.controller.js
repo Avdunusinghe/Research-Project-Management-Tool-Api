@@ -3,8 +3,17 @@ const StudentSubmisstion = require("../models/studentsubmission.model");
 
 const saveSubmisstion = async (request, response) => {
 	try {
-		let { id, submissionName, submissionType, fromDate, toDate, submissionfile, studentAnswerfile, isHide } =
-			request.body;
+		let {
+			id,
+			submissionName,
+			submissionType,
+			fromDate,
+			toDate,
+			submissionfile,
+			studentAnswerfile,
+			isHide,
+			markingSchemaFile,
+		} = request.body;
 
 		if (id == null) {
 			let submission = new Submisstion({
@@ -35,6 +44,7 @@ const saveSubmisstion = async (request, response) => {
 				fromDate,
 				toDate,
 				submissionfile,
+				markingSchemaFile,
 			});
 
 			response.json({
