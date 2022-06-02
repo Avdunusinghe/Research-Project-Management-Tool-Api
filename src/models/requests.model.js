@@ -31,13 +31,7 @@ const requestSchema = new Schema({
 		default: false,
 	},
 
-	supervisorId: {
-		type: Schema.Types.ObjectId,
-		required: false,
-		ref: "User",
-	},
-
-	coSupervisorId: {
+	panelMemberId: {
 		type: Schema.Types.ObjectId,
 		required: false,
 		ref: "User",

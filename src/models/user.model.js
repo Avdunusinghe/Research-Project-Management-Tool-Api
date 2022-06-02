@@ -6,25 +6,29 @@ const userSchema = new Schema({
 	studentid: {
 		type: String,
 	},
+
 	email: {
 		type: String,
 		required: true,
 		unique: true,
 	},
+
 	password: {
 		type: String,
 		required: true,
 	},
+
 	department: {
 		type: Array,
 		required: false,
 	},
+
 	fullName: {
 		type: String,
 		required: true,
 	},
 
-	studentid: {
+	studentId: {
 		type: String,
 		required: false,
 	},
@@ -70,6 +74,7 @@ const userSchema = new Schema({
 		type: Date,
 		required: false,
 	},
+
 	updatedBy: {
 		type: Schema.Types.ObjectId,
 		required: false,

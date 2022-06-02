@@ -11,22 +11,32 @@ const submissionSchema = new Schema({
 		type: String,
 		required: true,
 	},
+
 	fromDate: {
 		type: Date,
 		required: true,
 	},
+
 	toDate: {
 		type: Date,
 		required: true,
 	},
+
 	submissionfile: {
 		type: String,
 		required: true,
 	},
+
 	studentAnswerfile: {
 		type: String,
 		required: false,
 	},
+
+	markingSchemaFile: {
+		type: String,
+		required: false,
+	},
+
 	isHide: {
 		type: Boolean,
 		required: false,

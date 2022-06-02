@@ -3,25 +3,16 @@ const User = require("../models/user.model");
 
 const saveStudentSubmission = async (request, response) => {
 	try {
-		let { id, 
-			submissionId,
-			studentAnswerfile,
-			marks,
-			feedback ,
-			submittedById,
-	
-		} = request.body;
-
-		//const loggedInUser = User.findById(submittedById).select("-password");
+		let { id, submissionId, studentAnswerfile, marks, feedback, submittedById } = request.body;
 
 		if (id == null) {
 			let studentsubmission = new StudentSubmisstion({
 				submissionId,
-                 studentAnswerfile,
-                 marks,
-                 feedback,
-				 submittedById,
-				 
+				studentAnswerfile,
+				marks,
+				feedback,
+				submittedById,
+				submitedOn: new Date().toUTCString(),
 			});
 
 			await studentsubmission.save();
@@ -38,7 +29,9 @@ Get All Student Submissions
 */
 const getAllStudentSubmissions = async (request, response) => {
 	try {
-		const studentsubmissions = await StudentSubmisstion.find().select("");
+		const submissionId = request.params.id;
+
+		const studentsubmissions = await StudentSubmisstion.find({});
 
 		response.json(studentsubmissions);
 	} catch (error) {
@@ -46,10 +39,7 @@ const getAllStudentSubmissions = async (request, response) => {
 	}
 };
 
-
-
 module.exports = {
 	saveStudentSubmission,
 	getAllStudentSubmissions,
-	
 };

@@ -58,10 +58,15 @@ const saveUser = async (request, response) => {
 			}
 
 			const userObj = await User.findByIdAndUpdate(id, {
-				firstName,
-				lastName,
+				fullName,
 				email,
 				mobileNumber,
+				department,
+				isAdmin,
+				isPanelMember,
+				isSupervisor,
+				isLecure,
+				isSudent,
 				updatedOn: new Date().toUTCString(),
 			});
 
@@ -72,6 +77,7 @@ const saveUser = async (request, response) => {
 		}
 	} catch (error) {
 		response.json(error);
+		console.log(error);
 	}
 };
 

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Request = require("../models/requests.model");
 const User = require("../models/user.model");
-
+const sendPanelMemberAllocateEmail = require("../utils/email.helper");
 /*
  Student Request a supervisor
 */
@@ -66,7 +66,7 @@ const getAllSupervisorRequests = async (request, response) => {
   */
 const getPanelMembersMasterData = async (request, response) => {
 	try {
-		const panelMembers = await User.aggregate([{ $match: { isPanelMember: true } }]);
+		const panelMembers = await User.find({ isPanelMember: true });
 
 		response.json(panelMembers);
 	} catch (error) {
@@ -81,27 +81,45 @@ const getPanelMembersMasterData = async (request, response) => {
 
 const allocatePanelMember = async (request, response) => {
 	try {
-		let = { id, isAccept, panelMember } = request.body;
+		let { id, isAccept, panelMember, panelMemberId, groupLeaderEmail, panelMemberEmail } = request.body;
 
-		const request = Request.findById(id);
+		const groupRequest = Request.findById(id);
 
-		if (!request) {
+		if (!groupRequest) {
 			response.json({
 				isSuccess: false,
 				message: "Request Cannot Found",
 			});
 		}
 
-		const groupLeader = User.findById(request.firstmemberRegNumber);
-
 		const obj = await Request.findByIdAndUpdate(id, {
 			isAccept,
 			panelMember,
+			panelMemberId,
 		});
 
+		/*const emailBodyDetails = {
+			email: groupLeaderEmail,
+			panelMemberEmail: panelMemberEmail,
+			panelMemberName: panelMember,
+		};
+
+		const isSend = sendPanelMemberAllocateEmail(emailBodyDetails);
+
+		if (isSend) {
+			response.json({
+				isSuccess: true,
+				message: "Panel Member Allocated Succcessfull",
+			});
+		} else {
+			response.json({
+				isSuccess: true,
+				message: "Panel Member Allocated Succcessfull,But Email not send",
+			});
+		}*/
 		response.json({
 			isSuccess: true,
-			message: "Panel Member Allocated,",
+			message: "Panel Member Allocated Succcessfull",
 		});
 	} catch (error) {
 		response.json({

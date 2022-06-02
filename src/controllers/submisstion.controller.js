@@ -1,9 +1,19 @@
 const Submisstion = require("../models/submission.model");
+const StudentSubmisstion = require("../models/studentsubmission.model");
 
 const saveSubmisstion = async (request, response) => {
 	try {
-		let { id, submissionName, submissionType, fromDate, toDate, submissionfile, studentAnswerfile, isHide } =
-			request.body;
+		let {
+			id,
+			submissionName,
+			submissionType,
+			fromDate,
+			toDate,
+			submissionfile,
+			studentAnswerfile,
+			isHide,
+			markingSchemaFile,
+		} = request.body;
 
 		if (id == null) {
 			let submission = new Submisstion({
@@ -34,6 +44,7 @@ const saveSubmisstion = async (request, response) => {
 				fromDate,
 				toDate,
 				submissionfile,
+				markingSchemaFile,
 			});
 
 			response.json({
@@ -42,6 +53,7 @@ const saveSubmisstion = async (request, response) => {
 			});
 		}
 	} catch (error) {
+		console.log(error);
 		response.json({
 			isSuccess: false,
 			message: "Error has been orccured please try again",
@@ -169,6 +181,41 @@ const chengeVisiblitySubmisstion = async (reqeust, response) => {
 		});
 	}
 };
+
+const getSubmissionsStudentAnswers = async (reqeust, response) => {
+	try {
+		const submissionId = reqeust.params.id;
+
+		const studentAnswers = await StudentSubmisstion.find({ submissionId: submissionId })
+			.populate("submittedById", ["fullName", "studentId"])
+			.populate("submissionId");
+
+		response.json(studentAnswers);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+const evaluateStudentSubmission = async (reqeust, response) => {
+	try {
+		let { id, marks, feedBack } = reqeust.body;
+
+		const studentSubmission = await StudentSubmisstion.findById(id);
+
+		if (!studentSubmission) {
+			response.json({ isSuccess: false, message: "Connot find" });
+		} else {
+			const obj = await StudentSubmisstion.findByIdAndUpdate(id, {
+				marks,
+				feedBack,
+			});
+
+			response.json({ isSuccess: true, message: "Evalueate Submussion Successfull" });
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
 module.exports = {
 	saveSubmisstion,
 	getAllUnHideSubmissions,
@@ -176,4 +223,6 @@ module.exports = {
 	getSubmissionById,
 	deleteSubmisstion,
 	chengeVisiblitySubmisstion,
+	getSubmissionsStudentAnswers,
+	evaluateStudentSubmission,
 };
