@@ -37,7 +37,10 @@ const saveEvaluation  = async (request, response) => {
 			const isEvaluationGroupAvailable = await Evaluation.findById(id);
 
 			if (!isEvaluationGroupAvailable) {
-				return res.status(404).json("Cannot Find the Evaluation item");
+				response.json({
+					isSuccess: false,
+					message: "Cannot Find Evaluated Item.",
+				});
 			}
 
             const evaluationObj = await Evaluation.findByIdAndUpdate(id, {
