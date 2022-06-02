@@ -11,24 +11,19 @@ const saveStudent = async (request, response) => {
   try {
     let {
       id,
-      firstname,
-      lastname,
+      fullName,
       email,
-      mobilenumber,
+      mobileNumber,
       password,
-      faculty,
       department,
-      isStudent,
     } = request.body;
 
     if (id == null) {
       let student = new User({
-        firstname,
-        lastname,
+        fullName,
         email,
-        mobilenumber,
+        mobileNumber,
         password,
-        faculty,
         department,
         isStudent: true,
         createOn: new Date().toUTCString(),
@@ -43,8 +38,8 @@ const saveStudent = async (request, response) => {
 			// const isSuccess = sendStudentRegisteredEmail(studentDetails);
 			const isSuccess = true;
 			if (isSuccess) {
-				// const salt = await bcrypt.genSalt(10);
-				//student.password = await bcrypt.hash(student.password, salt);
+				 const salt = await bcrypt.genSalt(10);
+				student.password = await bcrypt.hash(student.password, salt);
 				await student.save();
 
 				response.status(200).send("Student has been save Successfully");
@@ -59,10 +54,12 @@ const saveStudent = async (request, response) => {
 			}
 
 			const studentObj = await User.findByIdAndUpdate(id, {
-				firstname,
-				lastname,
-				email,
-				mobilenumber,
+        fullName,
+        email,
+        mobileNumber,
+        password,
+        department,
+        isStudent: true,
 				updatedOn: new Date().toUTCString(),
 			});
 

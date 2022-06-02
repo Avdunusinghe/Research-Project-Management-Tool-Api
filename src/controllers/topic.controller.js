@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const registerTopic = async (request, response) => {
 	try {
-		let { id, topicName, subject, groupleaderId, groupleadername, groupId, description, isAccept } = request.body;
+		let { id, topicName, subject, groupleaderId, groupleadername,groupleaderEmail, groupName, description, isAccept } = request.body;
 
 		if (id == null) {
 			let topic = new Topic({
@@ -11,9 +11,10 @@ const registerTopic = async (request, response) => {
 				subject,
 				groupleaderId,
 				groupleadername,
-				groupId,
+				groupleaderEmail,
+				groupName,
 				description,
-				isAccept,
+				isAccept:false,
 				createOn: new Date().toUTCString(),
 				updatedOn: new Date().toUTCString(),
 			});
@@ -38,7 +39,8 @@ const registerTopic = async (request, response) => {
 				subject,
 				groupleaderId,
 				groupleadername,
-				groupId,
+				groupleaderEmail,
+				groupName,
 				description,
 				isAccept,
 				updatedOn: new Date().toUTCString(),

@@ -58,10 +58,15 @@ const saveUser = async (request, response) => {
 			}
 
 			const userObj = await User.findByIdAndUpdate(id, {
-				firstName,
-				lastName,
+				fullName,
 				email,
 				mobileNumber,
+				department,
+				isAdmin,
+				isPanelMember,
+				isSupervisor,
+				isLecure,
+				isSudent,
 				updatedOn: new Date().toUTCString(),
 			});
 
@@ -72,6 +77,7 @@ const saveUser = async (request, response) => {
 		}
 	} catch (error) {
 		response.json(error);
+		console.log(error);
 	}
 };
 
@@ -123,12 +129,14 @@ const deleteUser = async (request, response) => {
 		let query = await User.findById(userId);
 
 		if (!query) {
-			return response.status(200).json("Cannot Find User,Please Try Again");
 		}
 
 		query = await User.findByIdAndDelete(userId);
 
-		response.status(200).json("User has been delete successfully");
+		response.json({
+			isSuccess: true,
+			message: "User has been delete successfully",
+		});
 	} catch (err) {
 		response.status(400).json(err.message);
 	}

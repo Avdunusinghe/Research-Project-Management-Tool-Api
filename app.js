@@ -20,11 +20,11 @@ app.use(express.urlencoded({ extended: true }));
 
 //Enable All CORS Requests
 app.use(cors());
+
 app.use(helmet());
 app.use(filtUpload());
 
 //Middleware
-//const authenticateUser = require("./src/middleware/auth");
 
 if (app.get("env") === "development") {
 	app.use(morgan("tiny"));
@@ -43,6 +43,7 @@ app.use((request, response, next) => {
 app.get("/", (request, response) => {
 	response.send("<h3>Welcome Research Project Management Tool API</h3>");
 });
+
 app.use("/api/auth", require("./src/routes/auth.route"));
 app.use("/api/user", require("./src/routes/user.route"));
 app.use("/api/document", require("./src/routes/document.route"));
@@ -53,6 +54,8 @@ app.use("/api/document", require("./src/routes/documentUpload.route"));
 app.use("/api/requests", require("./src/routes/requests.route"));
 app.use("/api/submisstion", require("./src/routes/submisstion.route"));
 app.use("/api/evaluation", require("./src/routes/evaluation.route"));
+app.use("/api/submission", require("./src/routes/submisstion.route"));
+app.use("/api/studentsubmission", require("./src/routes/studentsubmission.route"));
 
 const port = process.env.PORT || 4000;
 

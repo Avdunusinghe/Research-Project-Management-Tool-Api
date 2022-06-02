@@ -10,22 +10,59 @@ const studentGroupSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	memberDetails: [
-		{
-			name: {
+	firstmemberName: {
 				type: String,
 				required: true,
 			},
-			email: {
+	firstmemberEmail: {
 				type: String,
 				required: true,
 			},
-			regNumber: {
+  firstmemberRegNumber: {
 				type: String,
 				required: true,
 			},
-		},
-	],
+  secondmemberName: {
+				type: String,
+				required: true,
+			},
+	secondmemberEmail: {
+				type: String,
+				required: true,
+			},
+  secondmemberRegNumber: {
+				type: String,
+				required: true,
+			},
+  thirdmemberName: {
+				type: String,
+				required: true,
+			},
+	thirdmemberEmail: {
+				type: String,
+				required: true,
+			},
+  thirdmemberRegNumber: {
+				type: String,
+				required: true,
+			},
+  fourthmemberName: {
+				type: String,
+				required: true,
+			},
+	fourthmemberEmail: {
+				type: String,
+				required: true,
+			},
+  fourthmemberRegNumber: {
+				type: String,
+				required: true,
+			},
+	need:{
+		type:Boolean,
+		default:false,
+	},
+	
 	createOn: {
 		type: Date,
 		required: false,

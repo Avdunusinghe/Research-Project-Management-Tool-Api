@@ -7,7 +7,7 @@ const topicSchema = new Schema({
 		required: true,
 	},
 	subject: {
-		type: String,
+		type: Array,
 		required: true,
 	},
 	groupleaderId: {
@@ -18,7 +18,11 @@ const topicSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	groupId: {
+	groupleaderEmail: {
+		type: String,
+		required: true,
+	},
+	groupName: {
 		type: String,
 		required: true,
 	},
