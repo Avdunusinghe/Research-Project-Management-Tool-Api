@@ -177,9 +177,30 @@ const getSubmissionsStudentAnswers = async (reqeust, response) => {
 
 		const studentAnswers = await StudentSubmisstion.find({ submissionId: submissionId })
 			.populate("submittedById", ["fullName", "studentId"])
-			.populate("submissionId", ["submisstionName"]);
+			.populate("submissionId");
 
 		response.json(studentAnswers);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+const evaluateStudentSubmission = async (reqeust, response) => {
+	try {
+		let { id, marks, feedBack } = reqeust.body;
+
+		const studentSubmission = await StudentSubmisstion.findById(id);
+
+		if (!studentSubmission) {
+			response.json({ isSuccess: false, message: "Connot find" });
+		} else {
+			const obj = await StudentSubmisstion.findByIdAndUpdate(id, {
+				marks,
+				feedBack,
+			});
+
+			response.json({ isSuccess: true, message: "Evalueate Submussion Successfull" });
+		}
 	} catch (error) {
 		console.log(error);
 	}
@@ -192,4 +213,5 @@ module.exports = {
 	deleteSubmisstion,
 	chengeVisiblitySubmisstion,
 	getSubmissionsStudentAnswers,
+	evaluateStudentSubmission,
 };

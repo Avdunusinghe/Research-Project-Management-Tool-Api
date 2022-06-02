@@ -26,7 +26,7 @@ const studentsubmissionSchema = new Schema({
 		type: String,
 		required: false,
 	},
-	feedback: {
+	feedBack: {
 		type: String,
 		required: false,
 	},

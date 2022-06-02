@@ -9,6 +9,7 @@ const {
 	deleteSubmisstion,
 	chengeVisiblitySubmisstion,
 	getSubmissionsStudentAnswers,
+	evaluateStudentSubmission,
 } = require("../controllers/submisstion.controller");
 
 //@route POST api/submisstion/register
@@ -38,5 +39,9 @@ router.delete("/:id", deleteSubmisstion);
 //@route GET api/studentAnswers/id
 //@desc Get studentAnswersList
 router.get("/studentAnswers/:id", getSubmissionsStudentAnswers);
+
+//@route PUT api/evaluate
+//@desc PUT evaluateStudentSubmission
+router.put("/evaluate", evaluateStudentSubmission);
 
 module.exports = router;
