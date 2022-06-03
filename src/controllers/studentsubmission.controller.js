@@ -1,5 +1,5 @@
 const StudentSubmisstion = require("../models/studentsubmission.model");
-const User = require("../models/user.model");
+
 
 const saveStudentSubmission = async (request, response) => {
 	try {
@@ -39,7 +39,24 @@ const getAllStudentSubmissions = async (request, response) => {
 	}
 };
 
+
+
+const getAllStudentEvaluationByStudent = async (request, response) => {
+
+	try {
+
+		let {submissionId,submittedById} = request.body;
+		const evaluations = await StudentSubmisstion.findOne({submissionId:submissionId, submittedById:submittedById});
+		response.json(evaluations);
+	} catch (error) {
+		response.status(400).json(error.message);
+	}
+}; 
+
+
 module.exports = {
 	saveStudentSubmission,
 	getAllStudentSubmissions,
+	getAllStudentEvaluationByStudent
+
 };

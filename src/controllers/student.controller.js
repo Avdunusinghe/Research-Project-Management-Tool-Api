@@ -23,26 +23,23 @@ const saveStudent = async (request, response) => {
 				updatedOn: new Date().toUTCString(),
 			});
 
-			const studentDetails = {
-				email: student.email,
-				password: student.password,
-			};
+			const salt = await bcrypt.genSalt(10);
+			student.password = await bcrypt.hash(student.password, salt);
+			await student.save();
 
-			const isSuccess = true;
-			if (isSuccess) {
-				const salt = await bcrypt.genSalt(10);
-				student.password = await bcrypt.hash(student.password, salt);
-				await student.save();
-
-				response.status(200).send("Student has been save Successfully");
-			} else {
-				response.status(400).json("Error,please contact Admin");
-			}
+			response.status(200).send("Student has been save Successfully");
 		} else {
 			const isStudentAvailable = await User.findById(id);
 
 			if (!isStudentAvailable) {
 				return res.status(404).json("Cannot Find Student");
+			}
+
+			if (!isStudentAvailable) {
+				response.json({
+					isSuccess: false,
+					message: "Cannot Find Student",
+				});
 			}
 
 			const studentObj = await User.findByIdAndUpdate(id, {
@@ -54,11 +51,14 @@ const saveStudent = async (request, response) => {
 				isStudent: true,
 				updatedOn: new Date().toUTCString(),
 			});
-
-			response.status(200).json("Student has been  Update SuccessFully");
+			response.json({
+				isSuccess: true,
+				message: "Student has been  Update SuccessFully",
+			});
 		}
 	} catch (error) {
-		response.status(400).json(error.message);
+		response.json(error);
+		console.log(error);
 	}
 };
 
