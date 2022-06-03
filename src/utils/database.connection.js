@@ -11,7 +11,7 @@ const databaseConnection = async () => {
 			useUnifiedTopology: true,
 		});
 
-		dbDebugger("Conected MongoDb.....");
+		console.log("Conected MongoDb.....");
 	} catch (error) {
 		console.log(error);
 		process.exit(1);

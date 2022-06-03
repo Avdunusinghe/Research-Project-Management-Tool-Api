@@ -54,7 +54,7 @@ app.use("/api/studentsubmission", require("./src/routes/studentsubmission.route"
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
-	databaseConnection();
+	//databaseConnection();
 	console.log(`Research Management Project Tool Web API Prod: ${port}`);
 });
 
