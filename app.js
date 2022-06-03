@@ -5,11 +5,9 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-var filtUpload = require("express-fileupload");
 const startupDebugger = require("debug")("app:startup");
-const databaseConnection = require("./src/utils/database.connection");
 const logger = require("./logger");
-
+const mongoose = require("mongoose");
 //Create the Express App
 const app = express();
 
@@ -22,7 +20,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use(helmet());
-app.use(filtUpload());
+
+const connectionString = process.env.connectionstring;
+
+mongoose.connect(connectionString, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
+mongoose.connection.once("open", () => {});
 
 if (app.get("env") === "development") {
 	app.use(morgan("tiny"));
@@ -31,11 +36,6 @@ if (app.get("env") === "development") {
 
 //Connect Database
 app.use(logger);
-
-app.use((request, response, next) => {
-	console.log("Authenticating...");
-	next();
-});
 
 //routes
 app.get("/", (request, response) => {
@@ -56,7 +56,6 @@ app.use("/api/studentsubmission", require("./src/routes/studentsubmission.route"
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
-	databaseConnection();
 	console.log(`Research Management Project Tool Web API Prod: ${port}`);
 });
 
