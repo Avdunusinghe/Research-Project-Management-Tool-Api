@@ -57,7 +57,7 @@ const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
 	databaseConnection();
-	console.log(`Research Management Project Tool Web API: ${port}`);
+	console.log(`Research Management Project Tool Web API Product: ${port}`);
 });
 
 /*Production URL=>https://rpmt-backend-api.herokuapp.com/*/
