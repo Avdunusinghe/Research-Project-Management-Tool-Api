@@ -7,6 +7,7 @@ const studentsubmissionSchema = new Schema({
 		required: false,
 		ref: "Submission",
 	},
+
 	studentAnswerfile: {
 		type: String,
 		required: true,
@@ -22,10 +23,12 @@ const studentsubmissionSchema = new Schema({
 		type: Date,
 		required: true,
 	},
+
 	marks: {
 		type: String,
 		required: false,
 	},
+
 	feedBack: {
 		type: String,
 		required: false,

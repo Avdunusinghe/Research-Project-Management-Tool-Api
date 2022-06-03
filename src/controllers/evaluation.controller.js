@@ -1,38 +1,28 @@
 const Evaluation = require("../models/evaluation.model");
-const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
-const saveEvaluation  = async (request, response) => {
-    try {
-		let { 
-            id, 
-            evaluationType, 
-            groupId, 
-            evaluatorname, 
-            evaluatoremail, 
-            mark,
-            feedback } = request.body;
-        
-        if (id == null) {
-            let evaluation = new Evaluation({
-                evaluationType,
-                groupId,
-                evaluatorname,
-                evaluatoremail,
-                mark,
-                feedback,
-                createOn: new Date().toUTCString(),
-                updatedOn: new Date().toUTCString(),
-            });
-            
-            const isSuccess = true;
-			if (isSuccess) {
-				await evaluation.save();
+const saveEvaluation = async (request, response) => {
+	try {
+		let { id, evaluationType, groupId, evaluatorname, evaluatoremail, mark, feedback } = request.body;
 
-				response.status(200).send("Evaluated Successfully");
-			} else {
-				response.status(400).json("Error,please Try Again");
-			}
+		if (id == null) {
+			let evaluation = new Evaluation({
+				evaluationType,
+				groupId,
+				evaluatorname,
+				evaluatoremail,
+				mark,
+				feedback,
+				createOn: new Date().toUTCString(),
+				updatedOn: new Date().toUTCString(),
+			});
+
+			await evaluation.save();
+
+			response.json({
+				isSuccess: true,
+				message: "Evaluated Successfully",
+			});
 		} else {
 			const isEvaluationGroupAvailable = await Evaluation.findById(id);
 
@@ -43,21 +33,24 @@ const saveEvaluation  = async (request, response) => {
 				});
 			}
 
-            const evaluationObj = await Evaluation.findByIdAndUpdate(id, {
+			const evaluationObj = await Evaluation.findByIdAndUpdate(id, {
 				evaluationType,
-                groupId,
-                evaluatorname,
-                evaluatoremail,
-                mark,
-                feedback,
+				groupId,
+				evaluatorname,
+				evaluatoremail,
+				mark,
+				feedback,
 				updatedOn: new Date().toUTCString(),
 			});
 
-            response.status(200).json("Evaluation item has been  Update SuccessFully");
+			response.json({
+				isSuccess: true,
+				message: "Evaluation item has been  Update SuccessFully",
+			});
 		}
 	} catch (error) {
 		response.status(400).json(error.message);
-	}          
+	}
 };
 
 /*
