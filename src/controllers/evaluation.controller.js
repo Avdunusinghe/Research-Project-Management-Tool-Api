@@ -95,12 +95,17 @@ const deleteEvaluationItem = async (request, response) => {
 		let query = await Evaluation.findById(evaluationId);
 
 		if (!query) {
-			return response.status(200).json("Cannot Find Evaluation Item,Please Try Again");
+			response.json({
+				isSuccess: false,
+				message: "Cannot Find Evaluation Item,Please Try Again",
+			});
 		}
 
 		query = await Evaluation.findByIdAndDelete(evaluationId);
-
-		response.status(200).json("Evaluation Item has been delete successfully");
+		response.json({
+			isSuccess: true,
+			message: "Evaluation Item has been delete successfully",
+		});
 	} catch (err) {
 		response.status(400).json(err.message);
 	}
