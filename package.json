@@ -7,7 +7,8 @@
 		"start": "node app.js",
 		"server": "nodemon app.js",
 		"format": "prettier --write .",
-		"check-format": "prettier --check ."
+		"check-format": "prettier --check .",
+		"test": "jest"
 	},
 	"repository": {
 		"type": "git",
@@ -31,6 +32,7 @@
 		"firebase": "^8.10.0",
 		"helmet": "^5.0.2",
 		"into-stream": "^3.1.0",
+		"jest": "^28.1.0",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.3.4",
 		"morgan": "^1.10.0",
@@ -40,6 +42,7 @@
 		"uuid": "^8.3.2"
 	},
 	"devDependencies": {
+		"mockingoose": "^2.15.2",
 		"prettier": "2.6.2"
 	}
 }
