@@ -26,7 +26,7 @@ if (app.get("env") === "development") {
 	app.use(morgan("tiny"));
 	startupDebugger("Enabled Morgon......");
 }
-
+databaseConnection();
 //Connect Database
 app.use(logger);
 
@@ -54,7 +54,6 @@ app.use("/api/studentsubmission", require("./src/routes/studentsubmission.route"
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
-	//databaseConnection();
 	console.log(`Research Management Project Tool Web API Prod: ${port}`);
 });
 
