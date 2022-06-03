@@ -27,12 +27,12 @@ const saveStudent = async (request, response) => {
 			student.password = await bcrypt.hash(student.password, salt);
 			await student.save();
 
-			response.status(200).send("Student has been save Successfully");
+			response.json({ isSuccess: true, messahe: "Student has been save Successfully" });
 		} else {
 			const isStudentAvailable = await User.findById(id);
 
 			if (!isStudentAvailable) {
-				return res.status(404).json("Cannot Find Student");
+				response.json({ isSuccess: false, messahe: "Cannot Find Student" });
 			}
 
 			if (!isStudentAvailable) {
