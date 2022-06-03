@@ -48,6 +48,8 @@ app.use("/api/student", require("./src/routes/student.route"));
 app.use("/api/studentGroup", require("./src/routes/studentGroup.route"));
 app.use("/api/topic", require("./src/routes/topic.route"));
 app.use("/api/requests", require("./src/routes/requests.route"));
+app.use("/api/submisstion", require("./src/routes/submisstion.route"));
+app.use("/api/evaluation", require("./src/routes/evaluation.route"));
 app.use("/api/submission", require("./src/routes/submisstion.route"));
 app.use("/api/studentsubmission", require("./src/routes/studentsubmission.route"));
 
