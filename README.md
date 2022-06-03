@@ -6,5 +6,5 @@ This is backend API for Research-Project-Management-Tool. Technology that we are
 ## Contributors
 
 <a href="https://github.com/Avdunusinghe/Research-Project-Management-Tool-Api/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Avdunusinghe/Research-Project-Management-Tool-Api width="175" />
+  <img src="https://contrib.rocks/image?repo=Avdunusinghe/Research-Project-Management-Tool-Api" width="175" />
 </a>
