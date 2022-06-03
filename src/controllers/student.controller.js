@@ -8,44 +8,27 @@ const sendStudentRegisteredEmail = require("../utils/email.helper");
 Register Student
 */
 const saveStudent = async (request, response) => {
-  try {
-    let {
-      id,
-      fullName,
-      email,
-      mobileNumber,
-	  studentId,
-      password,
-      department,
-    } = request.body;
+	try {
+		let { id, fullName, email, mobileNumber, password, department } = request.body;
 
-    if (id == null) {
-      let student = new User({
-        fullName,
-        email,
-        mobileNumber,
-		studentId,
-        password,
-        department,
-        isStudent: true,
-        createOn: new Date().toUTCString(),
-        updatedOn: new Date().toUTCString(),
-      });
+		if (id == null) {
+			let student = new User({
+				fullName,
+				email,
+				mobileNumber,
+				password,
+				department,
+				isStudent: true,
+				createOn: new Date().toUTCString(),
+				updatedOn: new Date().toUTCString(),
+			});
 
-			const studentDetails = {
-				email: student.email,
-				password: student.password,
-			};
+			const salt = await bcrypt.genSalt(10);
+			student.password = await bcrypt.hash(student.password, salt);
+			await student.save();
 
-			
-			
-				 const salt = await bcrypt.genSalt(10);
-				student.password = await bcrypt.hash(student.password, salt);
-				await student.save();
-
-				response.status(200).send("Student has been save Successfully");
-			}
-		else {
+			response.status(200).send("Student has been save Successfully");
+		} else {
 			const isStudentAvailable = await User.findById(id);
 
 			if (!isStudentAvailable) {
@@ -60,13 +43,12 @@ const saveStudent = async (request, response) => {
 			}
 
 			const studentObj = await User.findByIdAndUpdate(id, {
-        fullName,
-        email,
-        mobileNumber,
-		studentId,
-        password,
-        department,
-        isStudent: true,
+				fullName,
+				email,
+				mobileNumber,
+				password,
+				department,
+				isStudent: true,
 				updatedOn: new Date().toUTCString(),
 			});
 			response.json({
