@@ -24,8 +24,6 @@ app.use(cors());
 app.use(helmet());
 app.use(filtUpload());
 
-//Middleware
-
 if (app.get("env") === "development") {
 	app.use(morgan("tiny"));
 	startupDebugger("Enabled Morgon......");
@@ -46,11 +44,9 @@ app.get("/", (request, response) => {
 
 app.use("/api/auth", require("./src/routes/auth.route"));
 app.use("/api/user", require("./src/routes/user.route"));
-app.use("/api/document", require("./src/routes/document.route"));
 app.use("/api/student", require("./src/routes/student.route"));
 app.use("/api/studentGroup", require("./src/routes/studentGroup.route"));
 app.use("/api/topic", require("./src/routes/topic.route"));
-app.use("/api/document", require("./src/routes/documentUpload.route"));
 app.use("/api/requests", require("./src/routes/requests.route"));
 app.use("/api/submisstion", require("./src/routes/submisstion.route"));
 app.use("/api/evaluation", require("./src/routes/evaluation.route"));
@@ -61,7 +57,7 @@ const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
 	databaseConnection();
-	console.log(`Research Management Project Tool Web API: ${port}`);
+	console.log(`Research Management Project Tool Web API Prod: ${port}`);
 });
 
 //Production URL=>https://rpmt-backend-api.herokuapp.com/
