@@ -5,10 +5,7 @@
 	"main": "app.js",
 	"scripts": {
 		"start": "node app.js",
-		"server": "nodemon app.js",
-		"format": "prettier --write .",
-		"check-format": "prettier --check .",
-		"test": "jest"
+		"server": "nodemon app.js"
 	},
 	"repository": {
 		"type": "git",
