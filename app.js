@@ -5,7 +5,6 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-var filtUpload = require("express-fileupload");
 const startupDebugger = require("debug")("app:startup");
 const databaseConnection = require("./src/utils/database.connection");
 const logger = require("./logger");
@@ -22,7 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use(helmet());
-app.use(filtUpload());
 
 if (app.get("env") === "development") {
 	app.use(morgan("tiny"));
