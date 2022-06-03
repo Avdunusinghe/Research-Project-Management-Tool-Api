@@ -1,4 +1,4 @@
-const mailManager = require("nodemailer");
+/* const mailManager = require("nodemailer");
 const getComapanyEmailSettings = require("./companySettings/email.settings");
 
 function sendUserRegisteredEmail(userDaetails) {
@@ -166,3 +166,4 @@ module.exports = {
 	sendStudentRegisteredEmail,
 	sendPanelMemberAllocateEmail,
 };
+ */

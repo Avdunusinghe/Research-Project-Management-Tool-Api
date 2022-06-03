@@ -35,13 +35,6 @@ const saveUser = async (request, response) => {
 				updatedOn: new Date().toUTCString(),
 			});
 
-			const userDetails = {
-				email: user.email,
-				password: user.password,
-			};
-
-			//onst isSuccess = sendUserRegisteredEmail(userDetails);
-
 			const salt = await bcrypt.genSalt(10);
 			user.password = await bcrypt.hash(user.password, salt);
 			await user.save();
@@ -158,7 +151,7 @@ const getUserById = async (request, response) => {
 
 const getAllUsers = async (request, response) => {
 	try {
-		const userDetails = await User.find().select("-password");
+		const userDetails = await User.find().exec();
 
 		response.json(userDetails);
 	} catch (error) {

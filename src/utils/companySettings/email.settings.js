@@ -1,4 +1,4 @@
-function getComapanyEmailSettings() {
+/*function getComapanyEmailSettings() {
 	const companyEmailSettings = {
 		SMTP_USER: process.env.SMTP_USER,
 		SMTP_PASSWORD: process.env.SMTP_PASSWORD,
@@ -12,3 +12,4 @@ function getComapanyEmailSettings() {
 }
 
 module.exports = getComapanyEmailSettings;
+*/
