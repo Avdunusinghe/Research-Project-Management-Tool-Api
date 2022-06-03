@@ -98,25 +98,6 @@ const allocatePanelMember = async (request, response) => {
 			panelMemberId,
 		});
 
-		/*const emailBodyDetails = {
-			email: groupLeaderEmail,
-			panelMemberEmail: panelMemberEmail,
-			panelMemberName: panelMember,
-		};
-
-		const isSend = sendPanelMemberAllocateEmail(emailBodyDetails);
-
-		if (isSend) {
-			response.json({
-				isSuccess: true,
-				message: "Panel Member Allocated Succcessfull",
-			});
-		} else {
-			response.json({
-				isSuccess: true,
-				message: "Panel Member Allocated Succcessfull,But Email not send",
-			});
-		}*/
 		response.json({
 			isSuccess: true,
 			message: "Panel Member Allocated Succcessfull",
