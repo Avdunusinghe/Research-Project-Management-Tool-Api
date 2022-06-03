@@ -24,8 +24,6 @@ app.use(cors());
 app.use(helmet());
 app.use(filtUpload());
 
-//Middleware
-
 if (app.get("env") === "development") {
 	app.use(morgan("tiny"));
 	startupDebugger("Enabled Morgon......");
