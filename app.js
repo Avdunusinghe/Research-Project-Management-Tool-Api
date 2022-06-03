@@ -58,4 +58,4 @@ app.listen(port, () => {
 	console.log(`Research Management Project Tool Web API Prod: ${port}`);
 });
 
-/*Production URL=>https://rpmt-backend-api.herokuapp.com/*/
+//Production URL=>https://rpmt-backend-api.herokuapp.com/
