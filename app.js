@@ -24,8 +24,6 @@ app.use(cors());
 app.use(helmet());
 app.use(filtUpload());
 
-//Middleware
-
 if (app.get("env") === "development") {
 	app.use(morgan("tiny"));
 	startupDebugger("Enabled Morgon......");
@@ -60,4 +58,4 @@ app.listen(port, () => {
 	console.log(`Research Management Project Tool Web API Prod: ${port}`);
 });
 
-/*Production URL=>https://rpmt-backend-api.herokuapp.com/*/
+//Production URL=>https://rpmt-backend-api.herokuapp.com/
