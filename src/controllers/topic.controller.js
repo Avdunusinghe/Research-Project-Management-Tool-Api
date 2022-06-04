@@ -1,6 +1,9 @@
 const Topic = require("../models/topic.model");
 const mongoose = require("mongoose");
 
+/*
+ *@Description Resgister Topic
+ */
 const registerTopic = async (request, response) => {
 	try {
 		let { id, topicName, subject, groupleaderId, groupleadername, groupleaderEmail, groupName, description, isAccept } =
@@ -55,8 +58,8 @@ const registerTopic = async (request, response) => {
 };
 
 /*
-Get All topics
-*/
+ *@Description Get All topics
+ */
 const getAllTopics = async (request, response) => {
 	try {
 		const topics = await Topic.find().select();
@@ -68,9 +71,8 @@ const getAllTopics = async (request, response) => {
 };
 
 /*
-Get Topic By Id
-*/
-
+ *@Description Get Topic By Id
+ */
 const getTopicById = async (request, response) => {
 	try {
 		const topicId = request.params.id;

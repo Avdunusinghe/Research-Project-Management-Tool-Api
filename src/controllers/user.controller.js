@@ -3,6 +3,9 @@ const bcrypt = require("bcrypt");
 
 const sendUserRegisteredEmail = require("../utils/email.helper");
 
+/*
+ * @Description Save User And Update
+ */
 const saveUser = async (request, response) => {
 	try {
 		let {
@@ -74,6 +77,9 @@ const saveUser = async (request, response) => {
 	}
 };
 
+/*
+ * @Description Get UserDetails Paginination and search
+ */
 const getAllUsersDetails = async (request, response) => {
 	const limit = 0;
 	const skip = 0;
@@ -115,6 +121,9 @@ const getAllUsersDetails = async (request, response) => {
 	}
 };
 
+/*
+ * @Description Delete User
+ */
 const deleteUser = async (request, response) => {
 	try {
 		const userId = request.params.id;
@@ -122,6 +131,10 @@ const deleteUser = async (request, response) => {
 		let query = await User.findById(userId);
 
 		if (!query) {
+			response.json({
+				isSuccess: false,
+				message: "Not Foud User..",
+			});
 		}
 
 		query = await User.findByIdAndDelete(userId);
@@ -135,6 +148,9 @@ const deleteUser = async (request, response) => {
 	}
 };
 
+/*
+ * @Description Get By User Id
+ */
 const getUserById = async (request, response) => {
 	try {
 		const userId = request.params.id;
@@ -149,6 +165,9 @@ const getUserById = async (request, response) => {
 	}
 };
 
+/*
+ * @Description Get All Users
+ */
 const getAllUsers = async (request, response) => {
 	try {
 		const userDetails = await User.find().exec();
